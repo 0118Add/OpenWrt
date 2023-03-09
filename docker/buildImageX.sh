@@ -27,7 +27,7 @@ cp -f patches/rc.local "$TMPDIR/etc/" && \
 cp -f patches/99-custom.conf "$TMPDIR/etc/sysctl.d/" && \
 cp -f patches/cpustat "$TMPDIR/usr/bin/" && chmod 755 "$TMPDIR/usr/bin/cpustat" && \
 cp -f patches/getcpu "$TMPDIR/bin/" && chmod 755 "$TMPDIR/bin/getcpu" && \
-cp -f patches/coremark.sh "$TMPDIR/etc/" && chmod 755 "$TMPDIR/etc/coremark.sh"
+#cp -f patches/coremark.sh "$TMPDIR/etc/" && chmod 755 "$TMPDIR/etc/coremark.sh"
 cp -f patches/kmod "$TMPDIR/sbin/" && \
       (
         cd $TMPDIR/sbin && \
@@ -58,11 +58,11 @@ sed -e "s/sfe_flow '1'/sfe_flow '0'/" -i $TMPDIR/etc/config/turboacc
 rm -f "$TMPDIR/etc/bench.log" && \
 echo "17 3 * * * /etc/coremark.sh" >> "$TMPDIR/etc/crontabs/root"
 
-[ -f ${TMPDIR}/etc/config/qbittorrent ] && sed -e 's/\/opt/\/etc/' -i "${TMPDIR}/etc/config/qbittorrent"
+#[ -f ${TMPDIR}/etc/config/qbittorrent ] && sed -e 's/\/opt/\/etc/' -i "${TMPDIR}/etc/config/qbittorrent"
 
 [ -f ${TMPDIR}/etc/ssh/sshd_config ] && sed -e "s/#PermitRootLogin prohibit-password/PermitRootLogin yes/" -i "${TMPDIR}/etc/ssh/sshd_config"
 
-[ -f ${TMPDIR}/etc/samba/smb.conf.template ] && cat patches/smb4.11_enable_smb1.patch | (cd "$TMPDIR" && [ -f etc/samba/smb.conf.template ] && patch -p1)
+#[ -f ${TMPDIR}/etc/samba/smb.conf.template ] && cat patches/smb4.11_enable_smb1.patch | (cd "$TMPDIR" && [ -f etc/samba/smb.conf.template ] && patch -p1)
 
 sss=$(date +%s) && \
 ddd=$((sss/86400)) && \
