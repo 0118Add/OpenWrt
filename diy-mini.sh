@@ -68,7 +68,7 @@ echo "iptables -t nat -I POSTROUTING -o eth0 -j MASQUERADE" >> package/network/c
 #echo "iptables -t nat -I POSTROUTING -j FULLCONENAT" >> package/network/config/firewall/files/firewall.user
 
 # 移除重复软件包
-rm -rf package/lean/autocore
+#rm -rf package/lean/autocore
 #rm -rf feeds/packages/lang/golang
 rm -rf feeds/luci/collections/luci-lib-docker
 rm -rf feeds/luci/applications/luci-app-dockerman
@@ -77,7 +77,7 @@ rm -rf feeds/luci/applications/luci-app-dockerman
 #rm -rf feeds/packages/multimedia/aliyundrive-webdav
 
 # 添加额外软件包
-git clone https://github.com/0118Add/Autobuild.git package/myautocore
+#git clone https://github.com/0118Add/Autobuild.git package/myautocore
 #svn export https://github.com/sbwml/packages_lang_golang/branches/19.x feeds/packages/lang/golang
 git clone https://github.com/lisaac/luci-lib-docker.git package/luci-lib-docker
 git clone https://github.com/lisaac/luci-app-dockerman.git package/luci-app-dockerman
