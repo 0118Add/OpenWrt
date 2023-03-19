@@ -24,9 +24,9 @@ sed -i 's/192.168.1.1/192.168.2.1/g' package/base-files/files/bin/config_generat
 sed -i 's/DEPENDS:=@(.*/DEPENDS:=@(TARGET_bcm27xx||TARGET_bcm53xx||TARGET_ipq40xx||TARGET_ipq806x||TARGET_ipq807x||TARGET_mvebu||TARGET_rockchip||TARGET_armvirt) \\/g' package/lean/autocore/Makefile
 
 # 修改版本为编译日期
-date_version=$(date +"%y.%m.%d")
-orig_version=$(cat "package/lean/default-settings/files/zzz-default-settings" | grep DISTRIB_REVISION= | awk -F "'" '{print $2}')
-sed -i "s/${orig_version}/R${date_version}/g" package/lean/default-settings/files/zzz-default-settings
+#date_version=$(date +"%y.%m.%d")
+#orig_version=$(cat "package/lean/default-settings/files/zzz-default-settings" | grep DISTRIB_REVISION= | awk -F "'" '{print $2}')
+#sed -i "s/${orig_version}/R${date_version}/g" package/lean/default-settings/files/zzz-default-settings
 
 # 设置密码为空（安装固件时无需密码登陆，然后自己修改想要的密码）
 #sed -i 's@.*CYXluq4wUazHjmCDBCqXF*@#&@g' package/lean/default-settings/files/zzz-default-settings
@@ -68,7 +68,7 @@ echo "iptables -t nat -I POSTROUTING -o eth0 -j MASQUERADE" >> package/network/c
 #echo "iptables -t nat -I POSTROUTING -j FULLCONENAT" >> package/network/config/firewall/files/firewall.user
 
 # 移除重复软件包
-#rm -rf package/lean/autocore
+rm -rf package/lean/autocore
 #rm -rf feeds/packages/lang/golang
 rm -rf feeds/luci/collections/luci-lib-docker
 rm -rf feeds/luci/applications/luci-app-dockerman
@@ -77,7 +77,7 @@ rm -rf feeds/luci/applications/luci-app-dockerman
 #rm -rf feeds/packages/multimedia/aliyundrive-webdav
 
 # 添加额外软件包
-#git clone https://github.com/0118Add/Autobuild.git package/myautocore
+git clone https://github.com/0118Add/Autobuild.git package/myautocore
 #svn export https://github.com/sbwml/packages_lang_golang/branches/19.x feeds/packages/lang/golang
 git clone https://github.com/lisaac/luci-lib-docker.git package/luci-lib-docker
 git clone https://github.com/lisaac/luci-app-dockerman.git package/luci-app-dockerman
