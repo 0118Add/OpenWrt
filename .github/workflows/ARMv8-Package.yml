@@ -81,7 +81,7 @@ jobs:
         OPENWRT_ARMVIRT: openwrt/bin/targets/*/*/*rootfs.tar.gz
         PACKAGE_SOC: beikeyun_vplus_s905x3_s905d_rock5b_s922x
         WHOAMI: BGG
-        KERNEL_REPO_URL: https://github.com/breakings/OpenWrt/tree/main/opt
+        KERNEL_REPO_URL: https://github.com/0118Add/kernel
         KERNEL_VERSION_NAME: 5.15.25_6.1.1_5.10.110_5.4.210
         KERNEL_AUTO_LATEST: true
         ENABLE_WIFI_K504: 0
