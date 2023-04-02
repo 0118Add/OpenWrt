@@ -83,7 +83,7 @@ git clone https://github.com/lisaac/luci-lib-docker.git package/luci-lib-docker
 git clone https://github.com/lisaac/luci-app-dockerman.git package/luci-app-dockerman
 svn co https://github.com/kiddin9/openwrt-packages/trunk/lua-maxminddb package/lua-maxminddb
 git clone https://github.com/jerrykuku/luci-app-vssr.git package/luci-app-vssr
-#svn co https://github.com/0118Add/openwrt-packages/trunk/luci-app-bypass package/luci-app-bypass
+svn co https://github.com/0118Add/openwrt-packages/trunk/luci-app-bypass package/luci-app-bypass
 git clone https://github.com/fw876/helloworld.git package/helloworld
 git clone https://github.com/xiaorouji/openwrt-passwall.git package/openwrt-passwall
 git clone -b luci https://github.com/xiaorouji/openwrt-passwall.git package/passwall
