@@ -224,7 +224,7 @@ jobs:
         KERNEL_AUTO_LATEST: true
         ENABLE_WIFI_K504: 0
         ENABLE_WIFI_K510: 0
-        DISTRIB_REVISION: R${{ env.DATE1 }}
+        #DISTRIB_REVISION: R${{ env.DATE1 }}
 
     - name: Upload OpenWrt To Artifact
       if: env.PACKAGED_STATUS == 'success' && env.OPENWRT_RELEASE != 'true'
