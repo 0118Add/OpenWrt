@@ -18,7 +18,7 @@
 #sed -i '$a src-git helloworld https://github.com/fw876/helloworld' feeds.conf.default
 
 # 修改默认IP
-sed -i 's/192.168.1.1/192.168.2.1/g' package/base-files/files/bin/config_generate
+sed -i 's/192.168.1.1/192.168.2.2/g' package/base-files/files/bin/config_generate
 
 # 修改autocore
 #sed -i 's/DEPENDS:=@(.*/DEPENDS:=@(TARGET_bcm27xx||TARGET_bcm53xx||TARGET_ipq40xx||TARGET_ipq806x||TARGET_ipq807x||TARGET_mvebu||TARGET_rockchip||TARGET_armvirt) \\/g' package/lean/autocore/Makefile
@@ -35,7 +35,7 @@ sed -i 's/192.168.1.1/192.168.2.1/g' package/base-files/files/bin/config_generat
 #sed -i 's/KERNEL_PATCHVER:=5.15/KERNEL_PATCHVER:=6.1/g' target/linux/x86/Makefile
 
 # 修改概览里时间显示为中文数字
-#sed -i 's/os.date()/os.date("%Y年%m月%d日") .. " " .. translate(os.date("%A")) .. " " .. os.date("%X")/g' package/lean/autocore/files/x86/index.htm
+sed -i 's/os.date()/os.date("%Y年%m月%d日") .. " " .. translate(os.date("%A")) .. " " .. os.date("%X")/g' package/lean/autocore/files/x86/index.htm
 
 # 添加温度显示
 #sed -i 's/or "1"%>/or "1"%> ( <%=luci.sys.exec("expr `cat \/sys\/class\/thermal\/thermal_zone0\/temp` \/ 1000") or "?"%> \&#8451; ) /g' feeds/luci/modules/luci-mod-admin-full/luasrc/view/admin_status/index.htm
@@ -64,19 +64,19 @@ sed -i 's/net.netfilter.nf_conntrack_max=.*/net.netfilter.nf_conntrack_max=65535
 sed -i '/customized in this file/a net.netfilter.nf_conntrack_max=165535' package/base-files/files/etc/sysctl.conf
 
 # 移除重复软件包
-rm -rf package/lean/autocore
+#rm -rf package/lean/autocore
 #rm -rf feeds/packages/lang/golang
-rm -rf feeds/luci/collections/luci-lib-docker
-rm -rf feeds/luci/applications/luci-app-dockerman
+#rm -rf feeds/luci/collections/luci-lib-docker
+#rm -rf feeds/luci/applications/luci-app-dockerman
 #rm -rf feeds/luci/applications/luci-app-netdata
 #rm -rf feeds/luci/applications/luci-app-aliyundrive-webdav
 #rm -rf feeds/packages/multimedia/aliyundrive-webdav
 
 # 添加额外软件包
-git clone https://github.com/0118Add/X86_64-TEST.git package/myautocore
+#git clone https://github.com/0118Add/X86_64-TEST.git package/myautocore
 #svn export https://github.com/sbwml/packages_lang_golang/branches/19.x feeds/packages/lang/golang
-git clone https://github.com/lisaac/luci-lib-docker.git package/luci-lib-docker
-git clone https://github.com/lisaac/luci-app-dockerman.git package/luci-app-dockerman
+#git clone https://github.com/lisaac/luci-lib-docker.git package/luci-lib-docker
+#git clone https://github.com/lisaac/luci-app-dockerman.git package/luci-app-dockerman
 #svn co https://github.com/kiddin9/openwrt-packages/trunk/luci-app-dockerman package/luci-app-dockerman
 svn co https://github.com/kiddin9/openwrt-packages/trunk/lua-maxminddb package/lua-maxminddb
 git clone https://github.com/jerrykuku/luci-app-vssr.git package/luci-app-vssr
@@ -84,8 +84,8 @@ git clone https://github.com/jerrykuku/luci-app-vssr.git package/luci-app-vssr
 git clone https://github.com/fw876/helloworld.git package/helloworld
 git clone https://github.com/xiaorouji/openwrt-passwall.git package/openwrt-passwall
 git clone -b luci https://github.com/xiaorouji/openwrt-passwall.git package/passwall
-git clone https://github.com/xiaorouji/openwrt-passwall2 package/passwall2
-git clone https://github.com/sbwml/luci-app-alist.git package/alist
+#git clone https://github.com/xiaorouji/openwrt-passwall2 package/passwall2
+#git clone https://github.com/sbwml/luci-app-alist.git package/alist
 #svn co https://github.com/kiddin9/openwrt-packages/trunk/ddnsto package/ddnsto
 #svn co https://github.com/kiddin9/openwrt-packages/trunk/luci-app-ddnsto package/luci-app-ddnsto
 #git clone https://github.com/messense/aliyundrive-webdav.git package/aliyundrive-webdav
@@ -127,11 +127,11 @@ sed -i 's/WireGuard 状态/WiGd状态/g' feeds/luci/applications/luci-app-wiregu
 sed -i 's/Turbo ACC 网络加速/网络加速/g' feeds/luci/applications/luci-app-turboacc/po/zh-cn/turboacc.po
 
 # 调整 Dockerman 到 服务 菜单
-sed -i 's/"admin",/"admin","services",/g' package/luci-app-dockerman/applications/luci-app-dockerman/luasrc/controller/*.lua
-sed -i 's/"admin/"admin\/services/g' package/luci-app-dockerman/applications/luci-app-dockerman/luasrc/model/*.lua
-sed -i 's/"admin/"admin\/services/g' package/luci-app-dockerman/applications/luci-app-dockerman/luasrc/model/cbi/dockerman/*.lua
-sed -i 's/"admin/"admin\/services/g' package/luci-app-dockerman/applications/luci-app-dockerman/luasrc/view/dockerman/*.htm
-sed -i 's/"admin/"admin\/services/g' package/luci-app-dockerman/applications/luci-app-dockerman/luasrc/view/dockerman/cbi/*.htm
+#sed -i 's/"admin",/"admin","services",/g' package/luci-app-dockerman/applications/luci-app-dockerman/luasrc/controller/*.lua
+#sed -i 's/"admin/"admin\/services/g' package/luci-app-dockerman/applications/luci-app-dockerman/luasrc/model/*.lua
+#sed -i 's/"admin/"admin\/services/g' package/luci-app-dockerman/applications/luci-app-dockerman/luasrc/model/cbi/dockerman/*.lua
+#sed -i 's/"admin/"admin\/services/g' package/luci-app-dockerman/applications/luci-app-dockerman/luasrc/view/dockerman/*.htm
+#sed -i 's/"admin/"admin\/services/g' package/luci-app-dockerman/applications/luci-app-dockerman/luasrc/view/dockerman/cbi/*.htm
 
 # 调整 Zerotier 到 服务 菜单
 sed -i 's/vpn/services/g' ./feeds/luci/applications/luci-app-zerotier/luasrc/controller/*.lua
@@ -163,17 +163,17 @@ sed -i 's/services/vpn/g' package/passwall/luci-app-passwall/luasrc/view/passwal
 sed -i 's/services/vpn/g' package/passwall/luci-app-passwall/luasrc/view/passwall/server/*.htm
 
 # 调整 Pass Wall 2 到 GFW 菜单
-sed -i 's/services/vpn/g' package/passwall2/luci-app-passwall2/luasrc/controller/*.lua
-sed -i 's/services/vpn/g' package/passwall2/luci-app-passwall2/luasrc/model/cbi/passwall2/client/*.lua
-sed -i 's/services/vpn/g' package/passwall2/luci-app-passwall2/luasrc/model/cbi/passwall2/server/*.lua
-sed -i 's/services/vpn/g' package/passwall2/luci-app-passwall2/luasrc/passwall2/*.lua
-sed -i 's/services/vpn/g' package/passwall2/luci-app-passwall2/luasrc/view/passwall2/app_update/*.htm
-sed -i 's/services/vpn/g' package/passwall2/luci-app-passwall2/luasrc/view/passwall2/auto_switch/*.htm
-sed -i 's/services/vpn/g' package/passwall2/luci-app-passwall2/luasrc/view/passwall2/global/*.htm
-sed -i 's/services/vpn/g' package/passwall2/luci-app-passwall2/luasrc/view/passwall2/log/*.htm
-sed -i 's/services/vpn/g' package/passwall2/luci-app-passwall2/luasrc/view/passwall2/node_list/*.htm
-sed -i 's/services/vpn/g' package/passwall2/luci-app-passwall2/luasrc/view/passwall2/rule/*.htm
-sed -i 's/services/vpn/g' package/passwall2/luci-app-passwall2/luasrc/view/passwall2/server/*.htm
+#sed -i 's/services/vpn/g' package/passwall2/luci-app-passwall2/luasrc/controller/*.lua
+#sed -i 's/services/vpn/g' package/passwall2/luci-app-passwall2/luasrc/model/cbi/passwall2/client/*.lua
+#sed -i 's/services/vpn/g' package/passwall2/luci-app-passwall2/luasrc/model/cbi/passwall2/server/*.lua
+#sed -i 's/services/vpn/g' package/passwall2/luci-app-passwall2/luasrc/passwall2/*.lua
+#sed -i 's/services/vpn/g' package/passwall2/luci-app-passwall2/luasrc/view/passwall2/app_update/*.htm
+#sed -i 's/services/vpn/g' package/passwall2/luci-app-passwall2/luasrc/view/passwall2/auto_switch/*.htm
+#sed -i 's/services/vpn/g' package/passwall2/luci-app-passwall2/luasrc/view/passwall2/global/*.htm
+#sed -i 's/services/vpn/g' package/passwall2/luci-app-passwall2/luasrc/view/passwall2/log/*.htm
+#sed -i 's/services/vpn/g' package/passwall2/luci-app-passwall2/luasrc/view/passwall2/node_list/*.htm
+#sed -i 's/services/vpn/g' package/passwall2/luci-app-passwall2/luasrc/view/passwall2/rule/*.htm
+#sed -i 's/services/vpn/g' package/passwall2/luci-app-passwall2/luasrc/view/passwall2/server/*.htm
 
 # 调整 Hello World 到 GFW 菜单
 sed -i 's/services/vpn/g' package/luci-app-vssr/luasrc/controller/*.lua
