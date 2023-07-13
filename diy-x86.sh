@@ -18,7 +18,7 @@
 #sed -i '$a src-git helloworld https://github.com/fw876/helloworld' feeds.conf.default
 
 # 修改默认IP
-sed -i 's/192.168.1.1/192.168.2.2/g' package/base-files/files/bin/config_generate
+sed -i 's/192.168.1.1/192.168.2.1/g' package/base-files/files/bin/config_generate
 
 # 修改autocore
 #sed -i 's/DEPENDS:=@(.*/DEPENDS:=@(TARGET_bcm27xx||TARGET_bcm53xx||TARGET_ipq40xx||TARGET_ipq806x||TARGET_ipq807x||TARGET_mvebu||TARGET_rockchip||TARGET_armvirt) \\/g' package/lean/autocore/Makefile
@@ -34,6 +34,9 @@ sed -i 's/192.168.1.1/192.168.2.2/g' package/base-files/files/bin/config_generat
 # 替换内核
 #sed -i 's/KERNEL_PATCHVER:=5.15/KERNEL_PATCHVER:=6.1/g' target/linux/x86/Makefile
 
+# 替换index.htm文件
+wget -O ./package/lean/autocore/files/x86/index.htm https://raw.githubusercontent.com/0118Add/OpenWrt/main/scripts/index.htm
+
 # 修改概览里时间显示为中文数字
 sed -i 's/os.date()/os.date("%Y年%m月%d日") .. " " .. translate(os.date("%A")) .. " " .. os.date("%X")/g' package/lean/autocore/files/x86/index.htm
 
@@ -47,9 +50,6 @@ sed -i 's/${g}.*/${a}${b}${c}${d}${e}${f}${hydrid}/g' package/lean/autocore/file
 #curl -fsSL https://raw.githubusercontent.com/0118Add/patch/main/zzz-default-settings > ./package/lean/default-settings/files/zzz-default-settings
 #curl -fsSL https://raw.githubusercontent.com/0118Add/patch/main/x86_index.htm > ./package/lean/autocore/files/x86/index.htm
 #curl -fsSL https://raw.githubusercontent.com/0118Add/OpenWrt-CI/main/x86/diy/x86_lede/cpuinfo > ./package/myautocore/autocore/files/generic/cpuinfo
-
-# 替换index.htm文件
-#wget -O ./package/lean/autocore/files/x86/index.htm https://raw.githubusercontent.com/0118Add/OpenWrt-CI/main/x86/index_x86.htm
 
 # 替换banner
 wget -O ./package/base-files/files/etc/banner https://raw.githubusercontent.com/0118Add/OpenWrt-CI/main/x86/diy/x86_lede/banner
