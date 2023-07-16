@@ -59,5 +59,5 @@ define Package/autocore-x86/install
 	$(CP) ./files/x86/sbin/* $(1)/sbin
 endef
 
-$(eval $(call BuildPackage,mycore-arm))
-$(eval $(call BuildPackage,mycore-x86))
+$(eval $(call BuildPackage,autocore-arm))
+$(eval $(call BuildPackage,autocore-x86))
