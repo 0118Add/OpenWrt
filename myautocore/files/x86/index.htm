@@ -804,13 +804,12 @@ end
 
 	<table width="100%" cellspacing="10">
 		<tr><td width="33%"><%:Hostname%></td><td><%=luci.sys.hostname() or "?"%></td></tr>
-		<tr><td width="33%"><%:Model%></td><td><%=pcdata(boardinfo.model or "?")%></td></tr>
-		<% if has_boot then %> 
-		<tr><td width="33%"><%:目标平台%></td><td><%=pcdata(boardinfo.release.target or "?")%> - UEFI </td></tr>
+		<tr><td width="33%"><%:CPU Info%></td><td><%=luci.sys.exec("/sbin/cpuinfo") or "?"%></td></tr>
+                <% if has_boot then %>
+		<tr><td width="33%"><%:目标平台%></td><td><%=pcdata(boardinfo.release.target or "?")%> <%=luci.sys.exec("cat /etc/bench.log |awk -F '.' '{print $1}'") or " "%></td></tr>
                 <% else %> 
-		<tr><td width="33%"><%:目标平台%></td><td><%=pcdata(boardinfo.release.target or "?")%> - BIOS </td></tr>
+		<tr><td width="33%"><%:目标平台%></td><td><%=pcdata(boardinfo.release.target or "?")%> <%=luci.sys.exec("cat /etc/bench.log |awk -F '.' '{print $1}'") or " "%></td></tr>
 		<% end %>
-		<tr><td width="33%"><%:CPU Info%></td><td><%=luci.sys.exec("/sbin/cpuinfo") or "?"%>  <%=luci.sys.exec("cat /etc/bench.log |awk -F '.' '{print $1}'") or " "%></td></tr>
 		<tr><td width="33%"><%:CPU主频%></td><td id="cpuspeed">-</td></tr>
 		<tr><td width="33%"><%:CPU Temperature%></td><td id="cpuwd">-</td></tr>
 		<tr><td width="33%"><%:CPU负载%></td><td id="cpuusage">-</td></tr>
