@@ -18,7 +18,7 @@
 #sed -i '$a src-git helloworld https://github.com/fw876/helloworld' feeds.conf.default
 
 # 修改默认IP
-sed -i 's/192.168.1.1/192.168.2.1/g' package/base-files/files/bin/config_generate
+sed -i 's/192.168.1.1/10.0.0.1/g' package/base-files/files/bin/config_generate
 
 # 修改autocore
 sed -i 's/DEPENDS:=@(.*/DEPENDS:=@(TARGET_bcm27xx||TARGET_bcm53xx||TARGET_ipq40xx||TARGET_ipq806x||TARGET_ipq807x||TARGET_mvebu||TARGET_rockchip||TARGET_armvirt) \\/g' package/lean/autocore/Makefile
