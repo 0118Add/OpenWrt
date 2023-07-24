@@ -76,7 +76,7 @@ rm -rf package/lean/autocore
 #rm -rf feeds/packages/multimedia/aliyundrive-webdav
 
 # 添加额外软件包
-git clone https://github.com/0118Add/X86_64-TEST.git package/myautocore
+git clone https://github.com/0118Add/OpenWrt package/myautocore
 curl -fsSL https://raw.githubusercontent.com/0118Add/OpenWrt-CI/main/x86/diy/x86_lede/cpuinfo > ./package/myautocore/autocore/files/generic/cpuinfo
 #svn export https://github.com/sbwml/packages_lang_golang/branches/19.x feeds/packages/lang/golang
 #git clone https://github.com/lisaac/luci-lib-docker.git package/luci-lib-docker
