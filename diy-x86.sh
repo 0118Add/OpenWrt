@@ -100,7 +100,7 @@ svn co https://github.com/0118Add/openwrt_packages/trunk/luci-theme-atmaterial_n
 #git clone https://github.com/sirpdboy/luci-app-advanced.git package/luci-app-advanced
 #svn co https://github.com/kiddin9/openwrt-packages/trunk/luci-app-netdata package/luci-app-netdata
 svn co https://github.com/vernesong/OpenClash/branches/dev/luci-app-openclash package/luci-app-openclash
-git clone -b openwrt-18.06 https://github.com/tty228/luci-app-wechatpush package/luci-app-wechatpush
+svn co https://github.com/kiddin9/openwrt-packages/trunk/luci-app-wechatpush package/luci-app-wechatpush
 git clone https://github.com/sirpdboy/luci-theme-opentopd package/luci-theme-opentopd
 git clone https://github.com/sirpdboy/luci-app-partexp package/luci-app-partexp
 git clone https://github.com/sirpdboy/luci-app-ddns-go package/luci-app-ddns-go
