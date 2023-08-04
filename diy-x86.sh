@@ -74,6 +74,7 @@ sed -i '/customized in this file/a net.netfilter.nf_conntrack_max=165535' packag
 #rm -rf feeds/luci/applications/luci-app-netdata
 #rm -rf feeds/luci/applications/luci-app-aliyundrive-webdav
 #rm -rf feeds/packages/multimedia/aliyundrive-webdav
+rm -rf feeds/luci/applications/luci-app-serverchan
 
 # 添加额外软件包
 #git clone https://github.com/0118Add/OpenWrt package/myautocore
