@@ -38,6 +38,7 @@ sed -i 's/192.168.1.1/10.0.0.1/g' package/base-files/files/bin/config_generate
 #curl -fsSL https://raw.githubusercontent.com/0118Add/OpenWrt/main/images/index.htm > ./package/lean/autocore/files/x86/index.htm
 curl -fsSL https://raw.githubusercontent.com/0118Add/OpenWrt/main/scripts/autocore > ./package/lean/autocore/files/x86/autocore
 curl -fsSL https://raw.githubusercontent.com/0118Add/OpenWrt/main/scripts/cpuinfo > ./package/lean/autocore/files/x86/sbin/cpuinfo
+curl -fsSL https://raw.githubusercontent.com/0118Add/OpenWrt/main/scripts/netsupport.mk > ./package/kernel/linux/modules/netsupport.mk
 
 # 替换index.htm文件
 wget -O ./package/lean/autocore/files/x86/index.htm https://raw.githubusercontent.com/0118Add/OpenWrt/main/images/index.htm
