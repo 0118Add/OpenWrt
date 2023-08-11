@@ -97,7 +97,8 @@ git clone -b luci https://github.com/xiaorouji/openwrt-passwall.git package/pass
 #git clone https://github.com/sirpdboy/netspeedtest.git package/netspeedtest
 git clone https://github.com/8688Add/luci-theme-argon-dark-mod.git package/luci-theme-argon-dark-mod
 svn co https://github.com/0118Add/openwrt_packages/trunk/luci-theme-atmaterial_new package/luci-theme-atmaterial_new
-#git clone https://github.com/kiddin9/luci-theme-edge.git package/luci-theme-edge
+svn co https://github.com/kiddin9/openwrt-packages/trunk/daed package/daed
+svn co https://github.com/kiddin9/openwrt-packages/trunk/luci-app-daed package/luci-app-daed
 #git clone https://github.com/sirpdboy/luci-app-advanced.git package/luci-app-advanced
 #svn co https://github.com/kiddin9/openwrt-packages/trunk/luci-app-netdata package/luci-app-netdata
 svn co https://github.com/vernesong/OpenClash/branches/dev/luci-app-openclash package/luci-app-openclash
