@@ -742,6 +742,12 @@
 				e.innerHTML = progressbar(info.conncount, info.connmax);
 
                         if (e = document.getElementById('cpuusage'))
+				e.innerHTML = cpuusagel(info.cpuusage,);
+	                        if (e = document.getElementById('cpumhz'))
+				e.innerHTML = cpumhzl(info.cpumhz,);
+	                        if (e = document.getElementById('cputemp'))
+				e.innerHTML = cputempl(info.cputemp,);
+	
 				if (e = document.getElementById('ssdtemp'))
 				e.innerHTML = ssdtempl(info.ssdtemp,);
 	
