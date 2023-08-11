@@ -38,7 +38,6 @@ sed -i 's/192.168.1.1/10.0.0.1/g' package/base-files/files/bin/config_generate
 #curl -fsSL https://raw.githubusercontent.com/0118Add/OpenWrt/main/images/index.htm > ./package/lean/autocore/files/x86/index.htm
 curl -fsSL https://raw.githubusercontent.com/0118Add/OpenWrt/main/scripts/autocore > ./package/lean/autocore/files/x86/autocore
 curl -fsSL https://raw.githubusercontent.com/0118Add/OpenWrt/main/scripts/cpuinfo > ./package/lean/autocore/files/x86/sbin/cpuinfo
-curl -fsSL https://raw.githubusercontent.com/0118Add/OpenWrt/main/scripts/netsupport.mk > ./package/kernel/linux/modules/netsupport.mk
 
 # 替换index.htm文件
 wget -O ./package/lean/autocore/files/x86/index.htm https://raw.githubusercontent.com/0118Add/OpenWrt/main/images/index.htm
@@ -98,8 +97,8 @@ git clone -b luci https://github.com/xiaorouji/openwrt-passwall.git package/pass
 #git clone https://github.com/sirpdboy/netspeedtest.git package/netspeedtest
 git clone https://github.com/8688Add/luci-theme-argon-dark-mod.git package/luci-theme-argon-dark-mod
 svn co https://github.com/0118Add/openwrt_packages/trunk/luci-theme-atmaterial_new package/luci-theme-atmaterial_new
-svn co https://github.com/kiddin9/openwrt-packages/trunk/daed package/daed
-svn co https://github.com/kiddin9/openwrt-packages/trunk/luci-app-daed package/luci-app-daed
+#svn co https://github.com/kiddin9/openwrt-packages/trunk/daed package/daed
+#svn co https://github.com/kiddin9/openwrt-packages/trunk/luci-app-daed package/luci-app-daed
 #git clone https://github.com/sirpdboy/luci-app-advanced.git package/luci-app-advanced
 #svn co https://github.com/kiddin9/openwrt-packages/trunk/luci-app-netdata package/luci-app-netdata
 svn co https://github.com/vernesong/OpenClash/branches/dev/luci-app-openclash package/luci-app-openclash
