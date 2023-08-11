@@ -54,7 +54,7 @@
 		
 		local cpu_usage = (luci.sys.exec("expr 100 - $(top -n 1 | grep 'CPU:' | awk -F '%' '{print$4}' | awk -F ' ' '{print$2}')") or "6") .. "%"
 
-		local current_time = os.date("%Y-%m-%d") .. " " .. translate(os.date("%A")) .. " " .. os.date("%X")
+		 
                 local sda_temp = luci.sys.exec("smartctl -A /dev/sda | grep Temperature_Celsius | awk '{print $10}'")
                 local nvme_temp = luci.sys.exec("smartctl -A /dev/nvme0n1 | grep Temperature | awk '{print $2}' | head -n1")
                 local ssd_temp = (sda_temp ~= "" and sda_temp or nvme_temp)
@@ -63,7 +63,6 @@
                 local rv = {
 		        ssdtemp = ssd_temp,
                         runtime = run_time,  
-                        currenttime = current_time,
                         cpuusage    = cpu_usage,
 			cpuinfo    = cpu_info,
 			ethinfo    = eth_info,
@@ -697,10 +696,7 @@
 			if (e = document.getElementById('cpuinfo'))
 				e.innerHTML = info.cpuinfo;
 				
-			        if (e = document.getElementById('currenttime'))
-                                e.innerHTML = info.currenttime;
-
-		                if (e = document.getElementById('runtime'))
+			        if (e = document.getElementById('runtime'))
 				e.innerHTML = info.runtime;
 	
 	                if (e = document.getElementById('cpuusage'))
@@ -769,7 +765,7 @@
 			<%=pcdata(ver.distname)%> <%=pcdata(ver.distversion)%>
 		</td></tr>
 		<tr><td width="33%"><%:Kernel Version%></td><td><%=unameinfo.release or "?"%></td></tr>
-		<tr><td width="33%"><%:Local Time%></td><td id="currenttime">-</td></tr>
+		<tr><td width="33%"><%:Local Time%></td><td id="localtime">-</td></tr>
 		<tr><td width="33%"><%:Uptime%></td><td id="runtime">-</td></tr>
 		<tr><td width="33%"><%:Load Average%></td><td id="loadavg">-</td></tr>
 		<tr><td width="33%"><%:CPU usage (%)%></td><td id="cpuusage">-</td></tr>
