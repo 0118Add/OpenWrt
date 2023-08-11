@@ -35,12 +35,12 @@ sed -i 's/192.168.1.1/10.0.0.1/g' package/base-files/files/bin/config_generate
 #sed -i 's/KERNEL_PATCHVER:=5.15/KERNEL_PATCHVER:=6.1/g' target/linux/x86/Makefile
 
 # 修改系统文件
-#curl -fsSL https://raw.githubusercontent.com/0118Add/OpenWrt/main/images/index.htm > ./package/lean/autocore/files/x86/index.htm
+curl -fsSL https://raw.githubusercontent.com/0118Add/OpenWrt/main/images/index.htm > ./package/lean/autocore/files/x86/index.htm
 curl -fsSL https://raw.githubusercontent.com/0118Add/OpenWrt/main/scripts/autocore > ./package/lean/autocore/files/x86/autocore
-curl -fsSL https://raw.githubusercontent.com/0118Add/OpenWrt/main/scripts/cpuinfo > ./package/lean/autocore/files/x86/sbin/cpuinfo
+curl -fsSL https://raw.githubusercontent.com/0118Add/OpenWrt/main/images/cpuinfo > ./package/lean/autocore/files/x86/sbin/cpuinfo
 
 # 替换index.htm文件
-wget -O ./package/lean/autocore/files/x86/index.htm https://raw.githubusercontent.com/0118Add/OpenWrt/main/images/index.htm
+#wget -O ./package/lean/autocore/files/x86/index.htm https://raw.githubusercontent.com/0118Add/OpenWrt/main/images/index.htm
 
 # 修改概览里时间显示为中文数字
 sed -i 's/os.date()/os.date("%Y-%m-%d") .. " " .. translate(os.date("%A")) .. " " .. os.date("%X")/g' package/lean/autocore/files/x86/index.htm
