@@ -697,7 +697,13 @@
 			if (e = document.getElementById('cpuinfo'))
 				e.innerHTML = info.cpuinfo;
 				
-			if (e = document.getElementById('cpuusage'))
+			        if (e = document.getElementById('currenttime'))
+                                e.innerHTML = info.currenttime;
+
+		                if (e = document.getElementById('runtime'))
+				e.innerHTML = info.runtime;
+	
+	                if (e = document.getElementById('cpuusage'))
 				e.innerHTML = info.cpuusage;
 
 			if (e = document.getElementById('loadavg'))
@@ -735,6 +741,10 @@
 			if (e = document.getElementById('conns'))
 				e.innerHTML = progressbar(info.conncount, info.connmax);
 
+                        if (e = document.getElementById('cpuusage'))
+				if (e = document.getElementById('ssdtemp'))
+				e.innerHTML = ssdtempl(info.ssdtemp,);
+	
 		}
 	);
 //]]></script>
