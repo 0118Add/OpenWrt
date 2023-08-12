@@ -54,8 +54,16 @@
 		
 		local cpu_usage = (luci.sys.exec("expr 100 - $(top -n 1 | grep 'CPU:' | awk -F '%' '{print$4}' | awk -F ' ' '{print$2}')") or "6") .. "%"
 
-		local rv = {
-			cpuusage    = cpu_usage,
+		 
+                local sda_temp = luci.sys.exec("smartctl -A /dev/sda | grep Temperature_Celsius | awk '{print $10}'")
+                local nvme_temp = luci.sys.exec("smartctl -A /dev/nvme0n1 | grep Temperature | awk '{print $2}' | head -n1")
+                local ssd_temp = (sda_temp ~= "" and sda_temp or nvme_temp)
+                local run_time = luci.sys.exec("awk '{print int($1/86400)\"天 \"int($1%86400/3600)\"时 \"int($1%86400%3600/60)\"分 \"int($1%60)\"秒\"}' /proc/uptime")
+ 
+                local rv = {
+		        ssdtemp = ssd_temp,
+                        runtime = run_time,  
+                        cpuusage    = cpu_usage,
 			cpuinfo    = cpu_info,
 			ethinfo    = eth_info,
 			userinfo    = user_info,
@@ -688,7 +696,10 @@
 			if (e = document.getElementById('cpuinfo'))
 				e.innerHTML = info.cpuinfo;
 				
-			if (e = document.getElementById('cpuusage'))
+			        if (e = document.getElementById('runtime'))
+				e.innerHTML = info.runtime;
+	
+	                if (e = document.getElementById('cpuusage'))
 				e.innerHTML = info.cpuusage;
 
 			if (e = document.getElementById('loadavg'))
@@ -726,6 +737,16 @@
 			if (e = document.getElementById('conns'))
 				e.innerHTML = progressbar(info.conncount, info.connmax);
 
+                        if (e = document.getElementById('cpuusage'))
+				e.innerHTML = cpuusagel(info.cpuusage,);
+	                        if (e = document.getElementById('cpumhz'))
+				e.innerHTML = cpumhzl(info.cpumhz,);
+	                        if (e = document.getElementById('cputemp'))
+				e.innerHTML = cputempl(info.cputemp,);
+	
+				if (e = document.getElementById('ssdtemp'))
+				e.innerHTML = ssdtempl(info.ssdtemp,);
+	
 		}
 	);
 //]]></script>
@@ -737,15 +758,15 @@
 
 	<table width="100%" cellspacing="10">
 		<tr><td width="33%"><%:Hostname%></td><td><%=luci.sys.hostname() or "?"%></td></tr>
-		<tr><td width="33%"><%:Model%></td><td><%=pcdata(boardinfo.model or "?")%></td></tr>
-		<tr><td width="33%"><%:Architecture%></td><td><%=pcdata(boardinfo.release.target or "?")%> <%=luci.sys.exec("cat /etc/bench.log |awk -F '.' '{print $1}'") or " "%></td></tr>
+		<tr><td width="33%"><%:Model%></td><td><%=pcdata(boardinfo.model or "?")%> <%=luci.sys.exec("cat /etc/bench.log |awk -F '.' '{print $1}'") or " "%></td></tr>
+		<tr><td width="33%"><%:Architecture%></td><td><%=pcdata(boardinfo.release.target or "?")%></td></tr>
                 <tr><td width="33%"><%:CPU Info%></td><td id="cpuinfo">-</td></tr>
 		<tr><td width="33%"><%:Firmware Version%></td><td>
 			<%=pcdata(ver.distname)%> <%=pcdata(ver.distversion)%>
 		</td></tr>
 		<tr><td width="33%"><%:Kernel Version%></td><td><%=unameinfo.release or "?"%></td></tr>
 		<tr><td width="33%"><%:Local Time%></td><td id="localtime">-</td></tr>
-		<tr><td width="33%"><%:Uptime%></td><td id="uptime">-</td></tr>
+		<tr><td width="33%"><%:Uptime%></td><td id="runtime">-</td></tr>
 		<tr><td width="33%"><%:Load Average%></td><td id="loadavg">-</td></tr>
 		<tr><td width="33%"><%:CPU usage (%)%></td><td id="cpuusage">-</td></tr>
 	</table>
