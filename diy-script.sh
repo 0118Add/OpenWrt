@@ -39,6 +39,8 @@ sed -i 's/192.168.1.1/10.0.0.1/g' package/base-files/files/bin/config_generate
 #sed -i 's/LINUX_VERSION-6.1 = .12/LINUX_VERSION-6.1 = /g' ./include/kernel-6.1
 
 # 修改概览里时间显示为中文数字
+rm -rf package/lean/autocore
+git clone https://github.com/0118Add/N1-Actions-Dabao49 package/myautocore
 sed -i 's/os.date()/os.date("%Y年%m月%d日") .. " " .. translate(os.date("%A")) .. " " .. os.date("%X")/g' package/lean/autocore/files/arm/index.htm
 
 # 添加温度显示
@@ -68,8 +70,6 @@ sed -i 's/net.netfilter.nf_conntrack_max=.*/net.netfilter.nf_conntrack_max=65535
 sed -i '/customized in this file/a net.netfilter.nf_conntrack_max=165535' package/base-files/files/etc/sysctl.conf
 
 # 添加额外软件包
-#rm -rf package/lean/autocore
-#git clone https://github.com/0118Add/X86_64-TEST.git package/myautocore
 rm -rf feeds/luci/collections/luci-lib-docker
 rm -rf feeds/luci/applications/luci-app-dockerman
 #rm -rf feeds/packages/lang/golang
