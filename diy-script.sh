@@ -78,6 +78,7 @@ rm -rf feeds/luci/applications/luci-app-dockerman
 #rm -rf feeds/luci/applications/luci-app-aliyundrive-webdav
 #rm -rf feeds/packages/multimedia/aliyundrive-webdav
 #rm -rf /feeds/packages/net/samba4
+rm -rf feeds/luci/applications/luci-app-serverchan
 #svn co https://github.com/sirpdboy/diy/trunk/samba4 feeds/packages/net/samba4
 git clone https://github.com/lisaac/luci-lib-docker.git package/luci-lib-docker
 git clone https://github.com/lisaac/luci-app-dockerman.git package/luci-app-dockerman
@@ -102,12 +103,13 @@ svn co https://github.com/kenzok8/openwrt-packages/trunk/luci-theme-atmaterial_n
 git clone https://github.com/fw876/helloworld.git package/helloworld
 git clone https://github.com/jerrykuku/luci-app-vssr.git package/luci-app-vssr
 svn co https://github.com/vernesong/OpenClash/branches/dev/luci-app-openclash package/luci-app-openclash
+git clone -b openwrt-18.06 https://github.com/tty228/luci-app-wechatpush package/luci-app-wechatpush
 git clone https://github.com/ophub/luci-app-amlogic.git package/amlogic
 #svn co https://github.com/xiaoqingfengATGH/luci-theme-infinityfreedom/trunk/luci-theme-infinityfreedom package/luci-theme-infinityfreedom
 git clone https://github.com/0118Add/luci-app-unblockneteasemusic.git package/luci-app-unblockneteasemusic
 
 # 修改插件名字（修改名字后不知道会不会对插件功能有影响，自己多测试）
-sed -i 's/广告屏蔽大师 Plus+/广告屏蔽/g' feeds/luci/applications/luci-app-adbyby-plus/po/zh-cn/adbyby.po
+#sed -i 's/广告屏蔽大师 Plus+/广告屏蔽/g' feeds/luci/applications/luci-app-adbyby-plus/po/zh-cn/adbyby.po
 sed -i 's/解除网易云音乐播放限制/音乐解锁/g' package/luci-app-unblockneteasemusic/luasrc/controller/unblockneteasemusic.lua
 #sed -i 's/Hello World/Hi World/g' package/luci-app-vssr/luasrc/controller/vssr.lua
 sed -i 's/ShadowSocksR Plus+/SSR Plus+/g' package/helloworld/luci-app-ssr-plus/luasrc/controller/shadowsocksr.lua
