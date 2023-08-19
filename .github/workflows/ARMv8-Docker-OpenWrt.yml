@@ -10,7 +10,7 @@ name: ARMv8 Docker OpenWrt
 
 on:
   workflow_dispatch:
-  schedule:
+  #schedule:
     #- cron: 0 20 * * 5
 
 env:
