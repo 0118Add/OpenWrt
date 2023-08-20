@@ -40,9 +40,9 @@ cp -f patches/kmod "$TMPDIR/sbin/" && \
 	ln -s kmod rmmod 
       )
 
-for p in `echo patches/index.html.patches/*.patch`;do
-    cat $p | (cd "$TMPDIR/" && patch -p1 && find . -name '*.orig' -exec rm {} \; && find . -name '*.rej' -exec rm {} \;)
-done
+#for p in `echo patches/index.html.patches/*.patch`;do
+    #cat $p | (cd "$TMPDIR/" && patch -p1 && find . -name '*.orig' -exec rm {} \; && find . -name '*.rej' -exec rm {} \;)
+#done
 
 cat patches/init.d_turboacc.patch | (cd "$TMPDIR/" && patch -p1)
 if ! cat patches/cbi_turboacc_new.patch | (cd "$TMPDIR/" && patch -p1);then
@@ -55,8 +55,8 @@ fi
 sed -e "s/hw_flow '1'/hw_flow '0'/" -i $TMPDIR/etc/config/turboacc
 sed -e "s/sfe_flow '1'/sfe_flow '0'/" -i $TMPDIR/etc/config/turboacc
 
-rm -f "$TMPDIR/etc/bench.log" && \
-echo "17 3 * * * /etc/coremark.sh" >> "$TMPDIR/etc/crontabs/root"
+#rm -f "$TMPDIR/etc/bench.log" && \
+#echo "17 3 * * * /etc/coremark.sh" >> "$TMPDIR/etc/crontabs/root"
 
 #[ -f ${TMPDIR}/etc/config/qbittorrent ] && sed -e 's/\/opt/\/etc/' -i "${TMPDIR}/etc/config/qbittorrent"
 
