@@ -87,8 +87,8 @@ svn co https://github.com/kiddin9/openwrt-packages/trunk/lua-maxminddb package/l
 git clone https://github.com/jerrykuku/luci-app-vssr.git package/luci-app-vssr
 #svn co https://github.com/0118Add/openwrt-packages/trunk/luci-app-bypass package/luci-app-bypass
 git clone https://github.com/fw876/helloworld.git package/helloworld
-git clone -b packages https://github.com/xiaorouji/openwrt-passwall.git package/openwrt-passwall
-git clone -b luci https://github.com/xiaorouji/openwrt-passwall.git package/passwall
+git clone https://github.com/xiaorouji/openwrt-passwall-packages package/openwrt-passwall
+git clone https://github.com/xiaorouji/openwrt-passwall package/passwall
 #git clone https://github.com/xiaorouji/openwrt-passwall2 package/passwall2
 #git clone https://github.com/sbwml/luci-app-alist.git package/alist
 #svn co https://github.com/kiddin9/openwrt-packages/trunk/ddnsto package/ddnsto
