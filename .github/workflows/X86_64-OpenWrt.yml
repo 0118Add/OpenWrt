@@ -357,7 +357,7 @@ jobs:
 
     env:
       CONFIG_FILE: configs/x86_64-mini.config
-      DIY_SCRIPT: diy-x86.sh
+      DIY_SCRIPT: diy-x86_mini.sh
 
     steps:
     - name: Checkout
