@@ -67,6 +67,10 @@ sed -i '/customized in this file/a net.netfilter.nf_conntrack_max=165535' packag
 echo "iptables -t nat -I POSTROUTING -o eth0 -j MASQUERADE" >> package/network/config/firewall/files/firewall.user
 #echo "iptables -t nat -I POSTROUTING -j FULLCONENAT" >> package/network/config/firewall/files/firewall.user
 
+# node - prebuilt
+rm -rf feeds/packages/lang/node
+git clone https://github.com/sbwml/feeds_packages_lang_node-prebuilt feeds/packages/lang/node
+
 # 移除重复软件包
 #rm -rf package/lean/autocore
 #rm -rf feeds/packages/lang/golang
