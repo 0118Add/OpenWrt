@@ -74,6 +74,7 @@ git clone https://github.com/sbwml/feeds_packages_lang_node-prebuilt feeds/packa
 # 移除重复软件包
 #rm -rf package/lean/autocore
 #rm -rf feeds/packages/lang/golang
+rm -rf feeds/packages/net/mosdns
 #rm -rf feeds/luci/collections/luci-lib-docker
 #rm -rf feeds/luci/applications/luci-app-dockerman
 #rm -rf feeds/luci/applications/luci-app-netdata
