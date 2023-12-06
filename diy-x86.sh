@@ -196,10 +196,10 @@ sed -i 's/services/vpn/g' package/luci-app-vssr/luasrc/model/cbi/vssr/*.lua
 sed -i 's/services/vpn/g' package/luci-app-vssr/luasrc/view/vssr/*.htm
 
 # 调整 Open Clash 到 GFW 菜单
-sed -i 's/services/vpn/g' package/luci-app-openclash/luasrc/controller/*.lua
-sed -i 's/services/vpn/g' package/luci-app-openclash/luasrc/*.lua
-sed -i 's/services/vpn/g' package/luci-app-openclash/luasrc/model/cbi/openclash/*.lua
-sed -i 's/services/vpn/g' package/luci-app-openclash/luasrc/view/openclash/*.htm
+sed -i 's/services/vpn/g' package/luci-app-openclash/luci-app-openclash/luasrc/controller/*.lua
+sed -i 's/services/vpn/g' package/luci-app-openclash/luci-app-openclash/luasrc/*.lua
+sed -i 's/services/vpn/g' package/luci-app-openclash/luci-app-openclash/luasrc/model/cbi/openclash/*.lua
+sed -i 's/services/vpn/g' package/luci-app-openclash/luci-app-openclash/luasrc/view/openclash/*.htm
 
 # 修改 Makefile
 find package/*/ -maxdepth 2 -path "*/Makefile" | xargs -i sed -i 's/include\ \.\.\/\.\.\/luci\.mk/include \$(TOPDIR)\/feeds\/luci\/luci\.mk/g' {}
