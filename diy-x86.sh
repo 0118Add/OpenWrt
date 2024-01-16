@@ -103,7 +103,6 @@ git clone https://github.com/fw876/helloworld.git package/helloworld
 #git clone https://github.com/messense/aliyundrive-webdav.git package/aliyundrive-webdav
 #git clone https://github.com/sirpdboy/netspeedtest.git package/netspeedtest
 git clone https://github.com/8688Add/luci-theme-argon-dark-mod.git package/luci-theme-argon-dark-mod
-git clone https://github.com/0118Add/openwrt_packages package/luci-theme-atmaterial_new
 #svn co https://github.com/kiddin9/openwrt-packages/trunk/daed package/daed
 #svn co https://github.com/kiddin9/openwrt-packages/trunk/luci-app-daed package/luci-app-daed
 #git clone https://github.com/sirpdboy/luci-app-advanced.git package/luci-app-advanced
