@@ -97,14 +97,13 @@ git clone https://github.com/xiaorouji/openwrt-passwall package/passwall
 git clone https://github.com/sbwml/luci-app-mosdns package/mosdns
 git clone https://github.com/fw876/helloworld.git package/helloworld
 #git clone https://github.com/xiaorouji/openwrt-passwall2 package/passwall2
-#git clone https://github.com/sbwml/luci-app-alist.git package/alist
+git clone https://github.com/sbwml/luci-app-alist.git package/alist
 #svn co https://github.com/kiddin9/openwrt-packages/trunk/ddnsto package/ddnsto
 #svn co https://github.com/kiddin9/openwrt-packages/trunk/luci-app-ddnsto package/luci-app-ddnsto
 #git clone https://github.com/messense/aliyundrive-webdav.git package/aliyundrive-webdav
 #git clone https://github.com/sirpdboy/netspeedtest.git package/netspeedtest
 git clone https://github.com/8688Add/luci-theme-argon-dark-mod.git package/luci-theme-argon-dark-mod
-#svn co https://github.com/kiddin9/openwrt-packages/trunk/daed package/daed
-#svn co https://github.com/kiddin9/openwrt-packages/trunk/luci-app-daed package/luci-app-daed
+git clone https://github.com/sbwml/luci-app-daed-next package/luci-app-daed-next
 #git clone https://github.com/sirpdboy/luci-app-advanced.git package/luci-app-advanced
 #svn co https://github.com/kiddin9/openwrt-packages/trunk/luci-app-netdata package/luci-app-netdata
 git clone -b dev --depth 1 https://github.com/vernesong/OpenClash package/luci-app-openclash
@@ -123,6 +122,7 @@ git clone https://github.com/gngpp/luci-theme-design package/luci-theme-design
 # 修改插件名字（修改名字后不知道会不会对插件功能有影响，自己多测试）
 #sed -i 's/广告屏蔽大师 Plus+/广告屏蔽/g' feeds/luci/applications/luci-app-adbyby-plus/po/zh-cn/adbyby.po
 #sed -i 's/Argon 主题设置/主题设置/g' feeds/luci/applications/luci-app-argon-config/po/zh-cn/argon-config.po
+sed -i 's/Alist 文件列表/Alist/g' package/alist/luci-app-alist/po/zh-cn/alist.po
 sed -i 's/一键分区扩容/分区扩容/g' package/luci-app-partexp/po/zh-cn/partexp.po
 #sed -i 's/"管理权"/"改密码"/g' feeds/luci/modules/luci-base/po/zh-cn/base.po
 #sed -i 's/TTYD 终端/命令行/g' feeds/luci/applications/luci-app-ttyd/po/zh-cn/terminal.po
@@ -146,6 +146,11 @@ sed -i 's/Turbo ACC 网络加速/网络加速/g' feeds/luci/applications/luci-ap
 #sed -i 's/"admin/"admin\/services/g' package/luci-app-dockerman/applications/luci-app-dockerman/luasrc/model/cbi/dockerman/*.lua
 #sed -i 's/"admin/"admin\/services/g' package/luci-app-dockerman/applications/luci-app-dockerman/luasrc/view/dockerman/*.htm
 #sed -i 's/"admin/"admin\/services/g' package/luci-app-dockerman/applications/luci-app-dockerman/luasrc/view/dockerman/cbi/*.htm
+
+# 调整 Alist 到 服务 菜单
+sed -i 's/nas/services/g' package/alist/luci-app-alist/luasrc/controller/*.lua
+sed -i 's/nas/services/g' package/alist/luci-app-alist/luasrc/model/cbi/zerotier/*.lua
+sed -i 's/nas/services/g' package/alist/luci-app-alist/luasrc/view/zerotier/*.htm
 
 # 调整 Zerotier 到 服务 菜单
 sed -i 's/vpn/services/g' ./feeds/luci/applications/luci-app-zerotier/luasrc/controller/*.lua
