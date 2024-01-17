@@ -149,8 +149,8 @@ sed -i 's/Turbo ACC 网络加速/网络加速/g' feeds/luci/applications/luci-ap
 
 # 调整 Alist 到 服务 菜单
 sed -i 's/nas/services/g' package/alist/luci-app-alist/luasrc/controller/*.lua
-sed -i 's/nas/services/g' package/alist/luci-app-alist/luasrc/model/cbi/zerotier/*.lua
-sed -i 's/nas/services/g' package/alist/luci-app-alist/luasrc/view/zerotier/*.htm
+sed -i 's/nas/services/g' package/alist/luci-app-alist/luasrc/model/cbi/alist/*.lua
+sed -i 's/nas/services/g' package/alist/luci-app-alist/luasrc/view/alist/*.htm
 
 # 调整 Zerotier 到 服务 菜单
 sed -i 's/vpn/services/g' ./feeds/luci/applications/luci-app-zerotier/luasrc/controller/*.lua
