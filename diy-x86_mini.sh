@@ -110,7 +110,7 @@ git clone https://github.com/fw876/helloworld.git package/helloworld
 #git clone https://github.com/messense/aliyundrive-webdav.git package/aliyundrive-webdav
 #git clone https://github.com/sirpdboy/netspeedtest.git package/netspeedtest
 git clone https://github.com/8688Add/luci-theme-argon-dark-mod.git package/luci-theme-argon-dark-mod
-git clone https://github.com/8688Add/luci-app-daed-next package/luci-app-daed-next
+git clone https://github.com/sbwml/luci-app-daed-next package/luci-app-daed-next
 #git clone https://github.com/sirpdboy/luci-app-advanced.git package/luci-app-advanced
 #svn co https://github.com/kiddin9/openwrt-packages/trunk/luci-app-netdata package/luci-app-netdata
 git clone -b dev --depth 1 https://github.com/vernesong/OpenClash package/luci-app-openclash
