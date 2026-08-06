@@ -14,4 +14,4 @@ sed -i 's/\(MIRROR_HASH:=\).*/\1skip/' feeds/packages/net/smartdns/Makefile
 curl -sL $mirror/openwrt/patch/natflow/999-fix-ipset-api-kernel-6.12.patch > package/new/natflow/patches/999-fix-ipset-api-kernel-6.12.patch
 
 # shadowsocksr-libev 忽略gcc16警告
-sed -i 's/TARGET_CFLAGS += -flto/TARGET_CFLAGS += -flto -Wno-error/g' package/new/helloworld/shadowsocksr-libev/Makefile
+#sed -i 's/TARGET_CFLAGS += -flto/TARGET_CFLAGS += -flto -Wno-error/g' package/new/helloworld/shadowsocksr-libev/Makefile
