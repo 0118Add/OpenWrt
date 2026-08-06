@@ -100,8 +100,8 @@ sed -i 's/syslog/none/g' feeds/packages/admin/netdata/files/netdata.conf
 #git clone https://github.com/gitbruc/luci-app-qbittorrent package/new/qbittorrent --depth=1
 
 # unblockneteasemusic
-git clone https://github.com/UnblockNeteaseMusic/luci-app-unblockneteasemusic package/new/luci-app-unblockneteasemusic --depth=1
-sed -i 's/解除网易云音乐播放限制/音乐解锁/g' package/new/luci-app-unblockneteasemusic/root/usr/share/luci/menu.d/luci-app-unblockneteasemusic.json
+#git clone https://github.com/UnblockNeteaseMusic/luci-app-unblockneteasemusic package/new/luci-app-unblockneteasemusic --depth=1
+#sed -i 's/解除网易云音乐播放限制/音乐解锁/g' package/new/luci-app-unblockneteasemusic/root/usr/share/luci/menu.d/luci-app-unblockneteasemusic.json
 
 # Theme
 #git clone https://github.com/gitbruc/luci-theme-argon -b openwrt-25.12 package/new/luci-theme-argon --depth=1
