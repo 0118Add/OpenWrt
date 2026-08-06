@@ -32,8 +32,8 @@ git clone https://github.com/gitbruc/wwan-packages package/new/wwan --depth=1
 # luci-app-quickfile
 #git clone https://github.com/gitbruc/luci-app-quickfile package/new/quickfile
 
-# luci-app-airplay2
-#git clone https://github.com/gitbruc/luci-app-airplay2 package/new/airplay2
+# partexp
+git clone https://github.com/sirpdboy/luci-app-partexp package/luci-app-partexp
 
 # luci-app-webdav
 #git clone https://github.com/gitbruc/luci-app-webdav package/new/luci-app-webdav
