@@ -125,6 +125,7 @@ jobs:
         GH_REPO: ${{ github.repository }}
       run: |
         gh cache delete openwrt-25.12-${{ github.event.inputs.device }}-ccache || true
+    
     - name: Save Cached
       if: ${{ github.event.inputs.ccache == 'true' }}
       continue-on-error: true
