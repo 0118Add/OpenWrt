@@ -108,8 +108,7 @@ jobs:
           tags=snapshot-25.12-$(git log -n 1 --date=format:"%Y%m%d" --format="%cd")-$(git log --pretty=format:"%h" -1)
         fi
         echo "latest_release=${tags}-${{ github.event.inputs.device }}" >>$GITHUB_ENV
-        make V=s
-    
+        
     #- name: Extensive logs after a failed compilation
     #  if: steps.compile.outcome == 'failure'
     #  working-directory: /builder
