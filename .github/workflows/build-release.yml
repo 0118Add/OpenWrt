@@ -59,6 +59,7 @@ jobs:
         git config --global user.email 'action@github.com'
         echo build_dir="/builder" >> "$GITHUB_ENV"
         [ "${{ github.event.inputs.version }}" = release ] && echo build_version="rc2" >> "$GITHUB_ENV" || echo build_version="dev" >> "$GITHUB_ENV"
+    
     - name: Show system
       run: |
         echo -e "\n\e[1;32mCPU:\e[0m"
@@ -74,15 +75,15 @@ jobs:
         echo
 
     - name: Free disk space
-      uses: gitbruc/actions@free-disk
+      uses: sbwml/actions@free-disk
       with:
         build-mount-path: /builder
 
     - name: Build System Setup
-      uses: gitbruc/actions@openwrt-build-setup
+      uses: sbwml/actions@openwrt-build-setup
 
     - name: Install LLVM
-      uses: gitbruc/actions@install-llvm
+      uses: sbwml/actions@install-llvm
 
     - name: Restore Cached
       if: ${{ github.event.inputs.ccache == 'true' }}
@@ -139,12 +140,12 @@ jobs:
       run: |
         mkdir -p rom info
         if [ "${{ github.event.inputs.device }}" = "x86_64" ]; then
-          cp -a openwrt/bin/targets/x86/*/*-ext4-combined-efi.img.gz rom/
-          cp -a openwrt/bin/targets/x86/*/*-squashfs-combined-efi.img.gz rom/
-          cp -a openwrt/bin/targets/x86/*/*-squashfs-combined-efi.vmdk rom/
-          cp -a openwrt/bin/targets/x86/*/*-generic-rootfs.tar.gz rom/
-          cp -a openwrt/bin/targets/x86/*/*-x86-64-generic.manifest rom/manifest.txt
-          cp -a openwrt/bin/targets/x86/*/config.buildinfo rom/config.buildinfo
+          cp -a openwrt/bin/targets/x86/64/*-ext4-combined-efi.img.gz rom/
+          cp -a openwrt/bin/targets/x86/64/*-squashfs-combined-efi.img.gz rom/
+          cp -a openwrt/bin/targets/x86/64/*-squashfs-combined-efi.vmdk rom/
+          cp -a openwrt/bin/targets/x86/64/*-generic-rootfs.tar.gz rom/
+          cp -a openwrt/bin/targets/x86/64/*-x86-64-generic.manifest rom/manifest.txt
+          cp -a openwrt/bin/targets/x86/64/config.buildinfo rom/config.buildinfo
           cp -a openwrt/.config rom/config.txt
           cp -a openwrt/x86_64-kmodpkg.tar.gz rom/ || echo "Kmod archive not found"
           cd rom && sha256sum *gz > ../info/sha256sums.txt
