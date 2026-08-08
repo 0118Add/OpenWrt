@@ -29,7 +29,8 @@ ip_info=`curl -sk https://ip.cooluc.com`;
 [ -n "$ip_info" ] && export isCN=`echo $ip_info | grep -Po 'country_code\":"\K[^"]+'` || export isCN=US
 
 # script url
-export mirror=https://raw.githubusercontent.com/0118Add/OpenWrt/main
+#export mirror=https://raw.githubusercontent.com/0118Add/OpenWrt/main
+export mirror=https://raw.githubusercontent.com/0118Add/OpenWrt/refs/heads/main
 
 # private gitea
 export gitea=git.cooluc.com
@@ -378,7 +379,7 @@ else
     echo -e "\r\n${GREEN_COLOR}Building OpenWrt ...${RES}\r\n"
     sed -i "/BUILD_DATE/d" package/base-files/files/usr/lib/os-release
     sed -i "/BUILD_ID/aBUILD_DATE=\"$CURRENT_DATE\"" package/base-files/files/usr/lib/os-release
-    make -j1 V=s IGNORE_ERRORS="n m"
+    make V=s
     #make -j$cores IGNORE_ERRORS="n m"
 fi
 
