@@ -116,10 +116,10 @@ sed -i "s/D_GNU_SOURCE/D_GNU_SOURCE -funroll-loops/g" feeds/packages/net/iperf3/
 # git clone https://$github/sbwml/luci-app-mentohust package/new/mentohust
 
 # custom packages
-# rm -rf feeds/packages/utils/coremark
+rm -rf feeds/packages/utils/coremark
 git clone https://github.com/gitbruc/openwrt_pkgs package/new/custom --depth=1
 rm -rf package/new/custom/ddns-scripts-aliyun
-rm -rf package/new/custom/coremark
+#rm -rf package/new/custom/coremark
 # -openwrt luci-app-adguardhome
 rm -rf feeds/luci/applications/luci-app-adguardhome
 # coremark - prebuilt with gcc15
