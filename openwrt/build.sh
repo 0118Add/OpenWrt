@@ -402,7 +402,7 @@ fi
 if [ "$platform" = "x86_64" ]; then
     if [ "$NO_KMOD" != "y" ]; then
         cp -a bin/targets/x86/*/packages kmodpkg_name
-        rm -f kmodpkg/Packages*
+        rm -f kmodpkg_name/Packages*
         cp -a bin/packages/x86_64/base/rtl88*a-firmware*.apk kmodpkg_name/ || true
         cp -a bin/packages/x86_64/base/natflow*.apk kmodpkg_name/ || true
         [ "$OPENWRT_CORE" = "y" ] && {
