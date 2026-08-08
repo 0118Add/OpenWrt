@@ -140,12 +140,12 @@ jobs:
       run: |
         mkdir -p rom info
         if [ "${{ github.event.inputs.device }}" = "x86_64" ]; then
-          cp -a openwrt/bin/targets/x86/64/*-ext4-combined-efi.img.gz rom/
-          cp -a openwrt/bin/targets/x86/64/*-squashfs-combined-efi.img.gz rom/
-          cp -a openwrt/bin/targets/x86/64/*-squashfs-combined-efi.vmdk rom/
-          cp -a openwrt/bin/targets/x86/64/*-generic-rootfs.tar.gz rom/
-          cp -a openwrt/bin/targets/x86/64/*-x86-64-generic.manifest rom/manifest.txt
-          cp -a openwrt/bin/targets/x86/64/config.buildinfo rom/config.buildinfo
+          cp -a openwrt/bin/targets/x86/*/*-ext4-combined-efi.img.gz rom/
+          cp -a openwrt/bin/targets/x86/*/*-squashfs-combined-efi.img.gz rom/
+          cp -a openwrt/bin/targets/x86/*/*-squashfs-combined-efi.vmdk rom/
+          cp -a openwrt/bin/targets/x86/*/*-generic-rootfs.tar.gz rom/
+          cp -a openwrt/bin/targets/x86/*/*-x86-64-generic.manifest rom/manifest.txt
+          cp -a openwrt/bin/targets/x86/*/config.buildinfo rom/config.buildinfo
           cp -a openwrt/.config rom/config.txt
           cp -a openwrt/x86_64-kmodpkg.tar.gz rom/ || echo "Kmod archive not found"
           cd rom && sha256sum *gz > ../info/sha256sums.txt
