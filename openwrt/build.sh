@@ -403,21 +403,21 @@ if [ "$platform" = "x86_64" ]; then
     if [ "$NO_KMOD" != "y" ]; then
         cp -a bin/targets/x86/*/packages $kmodpkg_name
         rm -f $kmodpkg_name/Packages*
-        cp -a bin/packages/x86_64/base/rtl88*a-firmware*.apk kmodpkg_name/ || true
-        cp -a bin/packages/x86_64/base/natflow*.apk kmodpkg_name/ || true
+        cp -a bin/packages/x86_64/base/rtl88*a-firmware*.apk $kmodpkg_name/ || true
+        cp -a bin/packages/x86_64/base/natflow*.apk $kmodpkg_name/ || true
         [ "$OPENWRT_CORE" = "y" ] && {
-            cp -a bin/packages/x86_64/base/*3ginfo*.apk kmodpkg_name/ || true
-            cp -a bin/packages/x86_64/base/*modemband*.apk kmodpkg_name/ || true
-            cp -a bin/packages/x86_64/base/*sms-tool*.apk kmodpkg_name/ || true
-            cp -a bin/packages/x86_64/base/*quectel*.apk kmodpkg_name/ || true
+            cp -a bin/packages/x86_64/base/*3ginfo*.apk $kmodpkg_name/ || true
+            cp -a bin/packages/x86_64/base/*modemband*.apk $kmodpkg_name/ || true
+            cp -a bin/packages/x86_64/base/*sms-tool*.apk $kmodpkg_name/ || true
+            cp -a bin/packages/x86_64/base/*quectel*.apk $kmodpkg_name/ || true
         }
         [ "$ENABLE_DPDK" = "y" ] && {
-            cp -a bin/packages/x86_64/base/*dpdk*.apk kmodpkg_name/ || true
-            cp -a bin/packages/x86_64/base/*numa*.apk kmodpkg_name/ || true
+            cp -a bin/packages/x86_64/base/*dpdk*.apk $kmodpkg_name/ || true
+            cp -a bin/packages/x86_64/base/*numa*.apk $kmodpkg_name/ || true
         }
-        bash kmod-sign kmodpkg_name
-        tar zcf x86_64-kmodpkg.tar.gz kmodpkg_name
-        rm -rf kmodpkg_name
+        bash kmod-sign $kmodpkg_name
+        tar zcf x86_64-$kmodpkg.tar.gz $kmodpkg_name
+        rm -rf $kmodpkg_name
     fi
     # Backup download cache
     if [ "$isCN" = "CN" ] && [ "$1" = "rc2" ]; then
