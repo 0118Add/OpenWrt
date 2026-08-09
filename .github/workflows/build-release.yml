@@ -138,8 +138,27 @@ jobs:
     - name: Prepare Firmware Files
       working-directory: /builder
       run: |
-        mkdir -p firmware
-        find openwrt/bin/targets/ -type f -name "*combined*.img.gz" -exec cp {} ./firmware/ \;
+        mkdir -p rom info
+        if [ "${{ github.event.inputs.device }}" = "x86_64" ]; then
+          cp -a openwrt/bin/targets/x86/*/*ext4-combined-efi.img.gz rom/ || cp -a openwrt/bin/targets/x86/*/*combined-efi.img.gz rom/
+          cp -a openwrt/bin/targets/x86/*/*squashfs-combined-efi.img.gz rom/ || cp -a openwrt/bin/targets/x86/*/*combined-efi.img.gz rom/
+          cp -a openwrt/bin/targets/x86/*/*squashfs-combined-efi.vmdk rom/ || echo "VMDK not found"
+          cp -a openwrt/bin/targets/x86/*/*rootfs.tar.gz rom/
+          cp -a openwrt/bin/targets/x86/*/*.manifest rom/manifest.txt || echo "Manifest not found"
+          cp -a openwrt/bin/targets/x86/*/config.buildinfo rom/config.buildinfo || echo "config.buildinfo not found"
+          cp -a openwrt/.config rom/config.txt || echo ".config not found"
+          cp -a openwrt/x86_64-kmodpkg.tar.gz rom/ || echo "Kmod archive not found"
+          cd rom && sha256sum *.gz > ../info/sha256sums.txt
+        elif [ "${{ github.event.inputs.device }}" = "armv8" ]; then
+          tar zcf rom/u-boot-qemu_armv8.tar.gz -C openwrt/bin/targets/armsr/armv8*/ ./u-boot-qemu_armv8 || echo "u-boot not found"
+          cp -a openwrt/bin/targets/armsr/armv8*/*kernel.bin rom/
+          cp -a openwrt/bin/targets/armsr/armv8*/*ext4-combined-efi.img.gz rom/ || cp -a openwrt/bin/targets/armsr/armv8*/*combined-efi.img.gz rom/
+          cp -a openwrt/bin/targets/armsr/armv8*/*squashfs-combined-efi.img.gz rom/ || cp -a openwrt/bin/targets/armsr/armv8*/*combined-efi.img.gz rom/
+          cp -a openwrt/bin/targets/armsr/armv8*/*rootfs.tar.gz rom/
+          cp -a openwrt/bin/targets/armsr/armv8*/*.manifest rom/manifest.txt || echo "Manifest not found"
+          cp -a openwrt/bin/targets/armsr/armv8*/config.buildinfo rom/config.buildinfo || echo "config.buildinfo not found"
+          cd rom && sha256sum * > ../info/sha256sums.txt
+        fi
     
     - name: Upload artifacts
       uses: actions/upload-artifact@v6
