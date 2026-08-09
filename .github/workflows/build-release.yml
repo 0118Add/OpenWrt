@@ -101,7 +101,7 @@ jobs:
         [ ${{ github.event.inputs.ccache }} = 'true' ] && export ENABLE_CCACHE=y
         [ ${{ github.event.inputs.SquashFS_zstd }} = 'true' ] && export ENABLE_SquashFS_ZSTD=y
         [ -n ${{ github.event.inputs.root_password }} ] && export ROOT_PASSWORD="${{ github.event.inputs.root_password }}"
-        bash <(curl -sS https://raw.githubusercontent.com/0118Add/OpenWrt/refs/heads/main/openwrt/build.sh) ${{ env.build_version }} ${{ github.event.inputs.device }}
+        bash <(curl -sS https://raw.githubusercontent.com/0118Add/cooluc/refs/heads/main/openwrt/build.sh) ${{ env.build_version }} ${{ github.event.inputs.device }}
         cd openwrt
         if [ "${{ github.event.inputs.version }}" = release ]; then
           tags=OpenWrt-$(git describe --abbrev=0 --tags)
