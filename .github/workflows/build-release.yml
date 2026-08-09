@@ -160,6 +160,7 @@ jobs:
           cp -a openwrt/bin/targets/armsr/armv8*/config.buildinfo rom/config.buildinfo
           cd rom && sha256sum * > ../info/sha256sums.txt
         fi
+    
     - name: Upload artifacts
       uses: actions/upload-artifact@v6
       with:
