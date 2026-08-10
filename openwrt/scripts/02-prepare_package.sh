@@ -13,7 +13,7 @@ rm -rf feeds/packages/lang/node
 git clone https://github.com/gitbruc/feeds_packages_lang_node-prebuilt feeds/packages/lang/node -b packages-25.12
 
 # default settings
-git clone https://github.com/gitbruc/default-settings package/new/default-settings -b openwrt-25.12
+#git clone https://github.com/gitbruc/default-settings package/new/default-settings -b openwrt-25.12
 
 # wwan
 git clone https://github.com/gitbruc/wwan-packages package/new/wwan --depth=1
