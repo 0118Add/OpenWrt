@@ -16,7 +16,7 @@ git clone https://github.com/gitbruc/feeds_packages_lang_node-prebuilt feeds/pac
 #git clone https://github.com/gitbruc/default-settings package/new/default-settings -b openwrt-25.12
 
 # wwan
-git clone https://github.com/gitbruc/wwan-packages package/new/wwan --depth=1
+#git clone https://github.com/gitbruc/wwan-packages package/new/wwan --depth=1
 
 # bandix
 #git clone https://github.com/timsaya/openwrt-bandix package/new/bandix --depth=1
