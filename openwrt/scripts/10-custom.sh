@@ -1,4 +1,14 @@
 #!/bin/bash
+# Git稀疏克隆，只克隆指定目录到本地
+function git_sparse_clone() {
+  branch="$1" repourl="$2" && shift 2
+  git clone --depth=1 -b $branch --single-branch --filter=blob:none --sparse $repourl
+  repodir=$(echo $repourl | awk -F '/' '{print $(NF)}')
+  cd $repodir && git sparse-checkout set $@
+  mv -f $@ ../package
+  cd .. && rm -rf $repodir
+}
+
 rm -rf feeds/packages/net/{xray-core,sing-box,v2ray-geodata}
 git clone https://github.com/Openwrt-Passwall/openwrt-passwall-packages package/passwall-packages
 
@@ -38,6 +48,8 @@ git clone --depth=1 -b openwrt-25.12 https://github.com/immortalwrt/packages.git
 cp -rf immortalwrt-packages/net/msd_lite feeds/packages/net/msd_lite
 ln -sf ../../../feeds/packages/net/msd_lite ./package/feeds/packages/msd_lite
 sed -i 's/解除网易云音乐播放限制/音乐解锁/g' feeds/luci/applications/luci-app-unblockneteasemusic/root/usr/share/luci/menu.d/luci-app-unblockneteasemusic.json
+
+git_sparse_clone master https://github.com/8688Add/openwrt_pkgs default-settings
 
 # change luci
 #perl -pi -e "s/hostname='OpenWrt'/hostname='XiaomanWrt'/g" package/base-files/files/bin/config_generate
