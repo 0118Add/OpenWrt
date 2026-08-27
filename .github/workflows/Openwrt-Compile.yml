@@ -1,4 +1,4 @@
-name: X86-OpenWrt
+name: Openwrt-Compile
 
 on:
   workflow_dispatch
