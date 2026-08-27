@@ -8,32 +8,14 @@ on:
         required: true
         type: string
         default: ""
-      upload_source:
-        required: false
-        type: boolean
-        default: false
-      build_firmware:
-        required: false
-        type: boolean
-        default: true 
- 
- workflow_dispatch:
+
+  workflow_dispatch:
     inputs:
       targets:
         description: "Select target platforms (comma separated, e.g. R4S,R76S,R5S,X86 ;leave blank for all, case-insensitive)"
         required: false
         type: string
         default: ""
-      upload_source:
-        description: "Upload source folder before build"
-        required: false
-        type: boolean
-        default: false
-      build_firmware:
-        description: "Build and publish firmware"
-        required: false
-        type: boolean
-        default: true
 
 jobs:
   build:
