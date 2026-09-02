@@ -32,23 +32,26 @@ git clone https://github.com/sbwml/packages_utils_docker customfeeds/packages/ut
 git clone https://github.com/sbwml/packages_utils_dockerd customfeeds/packages/utils/dockerd
 git clone https://github.com/sbwml/packages_utils_containerd customfeeds/packages/utils/containerd
 git clone https://github.com/sbwml/packages_utils_runc customfeeds/packages/utils/runc
+sed -i 's/"admin/"admin\/services/g' customfeeds/luci/applications/luci-app-dockerman/root/usr/share/luci/menu.d/luci-app-dockerman.json
+mkdir -p customfeeds/packages/utils/dockerd/patches
+curl -s https://raw.githubusercontent.com/0118Add/X86_64-Test/main/general/patches/001-skip-copy-nested-binaries.patch > customfeeds/packages/utils/dockerd/patches/001-skip-copy-nested-binaries.patch
 
 # samba4 - bump version
 # rm -rf customfeeds/packages/net/samba4
 # git clone https://github.com/sbwml/feeds_packages_net_samba4 customfeeds/packages/net/samba4
 # enable multi-channel
-sed -i '/workgroup/a \\n\t## enable multi-channel' customfeeds/packages/net/samba4/files/smb.conf.template
-sed -i '/enable multi-channel/a \\tserver multi channel support = yes' customfeeds/packages/net/samba4/files/smb.conf.template
+#sed -i '/workgroup/a \\n\t## enable multi-channel' customfeeds/packages/net/samba4/files/smb.conf.template
+#sed -i '/enable multi-channel/a \\tserver multi channel support = yes' customfeeds/packages/net/samba4/files/smb.conf.template
 # default config
-sed -i 's/#aio read size = 0/aio read size = 0/g' customfeeds/packages/net/samba4/files/smb.conf.template
-sed -i 's/#aio write size = 0/aio write size = 0/g' customfeeds/packages/net/samba4/files/smb.conf.template
-sed -i 's/invalid users = root/#invalid users = root/g' customfeeds/packages/net/samba4/files/smb.conf.template
-sed -i 's/bind interfaces only = yes/bind interfaces only = no/g' customfeeds/packages/net/samba4/files/smb.conf.template
-sed -i 's/#create mask/create mask/g' customfeeds/packages/net/samba4/files/smb.conf.template
-sed -i 's/#directory mask/directory mask/g' customfeeds/packages/net/samba4/files/smb.conf.template
-sed -i 's/0666/0644/g;s/0744/0755/g;s/0777/0755/g' customfeeds/luci/applications/luci-app-samba4/htdocs/luci-static/resources/view/samba4.js
-sed -i 's/0666/0644/g;s/0777/0755/g' customfeeds/packages/net/samba4/files/samba.config
-sed -i 's/0666/0644/g;s/0777/0755/g' customfeeds/packages/net/samba4/files/smb.conf.template
+#sed -i 's/#aio read size = 0/aio read size = 0/g' customfeeds/packages/net/samba4/files/smb.conf.template
+#sed -i 's/#aio write size = 0/aio write size = 0/g' customfeeds/packages/net/samba4/files/smb.conf.template
+#sed -i 's/invalid users = root/#invalid users = root/g' customfeeds/packages/net/samba4/files/smb.conf.template
+#sed -i 's/bind interfaces only = yes/bind interfaces only = no/g' customfeeds/packages/net/samba4/files/smb.conf.template
+#sed -i 's/#create mask/create mask/g' customfeeds/packages/net/samba4/files/smb.conf.template
+#sed -i 's/#directory mask/directory mask/g' customfeeds/packages/net/samba4/files/smb.conf.template
+#sed -i 's/0666/0644/g;s/0744/0755/g;s/0777/0755/g' customfeeds/luci/applications/luci-app-samba4/htdocs/luci-static/resources/view/samba4.js
+#sed -i 's/0666/0644/g;s/0777/0755/g' customfeeds/packages/net/samba4/files/samba.config
+#sed -i 's/0666/0644/g;s/0777/0755/g' customfeeds/packages/net/samba4/files/smb.conf.template
 
 # xdp-tools
 rm -rf package/network/utils/xdp-tools
