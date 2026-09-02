@@ -55,6 +55,10 @@ rm -rf package/base-files/files/etc/banner
 cp -f $GITHUB_WORKSPACE/data/banner package/base-files/files/etc/banner
 cp -f $GITHUB_WORKSPACE/data/02_network target/linux/x86/base-files/etc/board.d/02_network
 
+# 自定义配置,替换文件
+curl -fsSL https://raw.githubusercontent.com/0118Add/X86-Actions/main/general/25_storage.js > ./customfeeds/luci/modules/luci-mod-status/htdocs/luci-static/resources/view/status/include/25_storage.js
+curl -fsSL https://raw.githubusercontent.com/0118Add/X86-Actions/main/scripts/release > package/base-files/files/etc/os-release
+
 # Add private cnspeedtest packages
 rm -rf package/community/openwrt-cnspeedtest
 if [ -z "$CNSPEEDTEST_TOKEN" ]; then
