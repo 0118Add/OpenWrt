@@ -76,7 +76,8 @@ git clone https://github.com/sbwml/autocore-arm -b openwrt-25.12 package/autocor
 # Default settings
 rm -rf feeds/packages/utils/coremark
 #git clone https://github.com/sbwml/default-settings package/default-settings
-merge_package master https://github.com/8688Add/openwrt_pkgs package/pkgs coremark default-settings
+merge_package https://github.com/8688Add/openwrt_pkgs openwrt_pkgs/coremark
+merge_package https://github.com/8688Add/openwrt_pkgs openwrt_pkgs/default-settings
 
 # OpenClash
 git clone -b dev --depth 1 https://github.com/vernesong/OpenClash package/OpenClash
