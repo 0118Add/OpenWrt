@@ -23,7 +23,7 @@ env:
   REPO_URL: https://github.com/openwrt/openwrt
   REPO_BRANCH: v25.12.5
   CONFIG_FILE: configs/25.12.config
-  DIY_SCRIPT: custom/25.12.sh
+  DIY_SCRIPT: scripts/25.12.sh
   CLASH_KERNEL: amd64
   CACHE_TOOLCHAIN: false
   UPLOAD_BIN_DIR: false
