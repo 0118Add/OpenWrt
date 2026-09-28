@@ -19,20 +19,20 @@ git clone -b dev --depth 1 https://github.com/vernesong/OpenClash package/OpenCl
 git clone https://github.com/kenzok8/openwrt-clashoo package/clashoo
 
 # homeproxy
-git clone -b master --depth 1 https://github.com/szwjp/homeproxy package/luci-app-homeproxy
+#git clone -b master --depth 1 https://github.com/szwjp/luci-app-homeproxy package/luci-app-homeproxy
 #git clone --depth 1 -b master https://github.com/fun200/homeproxy_plus package/luci-app-homeproxy
-sed -i "s/ImmortalWrt/OpenWrt/g" package/luci-app-homeproxy/po/zh_Hans/homeproxy.po
-sed -i "s/ImmortalWrt proxy/OpenWrt proxy/g" package/luci-app-homeproxy/htdocs/luci-static/resources/view/homeproxy/{client.js,server.js}
+#sed -i "s/ImmortalWrt/OpenWrt/g" package/luci-app-homeproxy/po/zh_Hans/homeproxy.po
+#sed -i "s/ImmortalWrt proxy/OpenWrt proxy/g" package/luci-app-homeproxy/htdocs/luci-static/resources/view/homeproxy/{client.js,server.js}
 
 # dae daed
 #git clone -b kix --depth 1 https://github.com/QiuSimons/luci-app-dae package/dae
-git clone -b kix --depth 1 https://github.com/QiuSimons/luci-app-daed package/daed
-git clone https://github.com/QiuSimons/vmlinux-btf package/vmlinux-btf
-sed -i 's/PKG_VERSION:=.*/PKG_VERSION:=2026.06.14/g' package/daed/daed/Makefile
-sed -i 's/DAED_VERSION:=.*/DAED_VERSION:=daed-4d6a433/g' package/daed/daed/Makefile
-sed -i 's/WING_VERSION:=.*/WING_VERSION:=wing-dc50308/g' package/daed/daed/Makefile
-sed -i 's/CORE_VERSION:=.*/CORE_VERSION:=core-5a51cc7/g' package/daed/daed/Makefile
-sed -i 's/PKG_SOURCE_VERSION:=.*/PKG_SOURCE_VERSION:=4d6a43331f2f6e25961935b9e7ac09a7568bb2b4/g' package/daed/daed/Makefile
+#git clone -b kix --depth 1 https://github.com/QiuSimons/luci-app-daed package/daed
+#git clone https://github.com/QiuSimons/vmlinux-btf package/vmlinux-btf
+#sed -i 's/PKG_VERSION:=.*/PKG_VERSION:=2026.06.14/g' package/daed/daed/Makefile
+#sed -i 's/DAED_VERSION:=.*/DAED_VERSION:=daed-4d6a433/g' package/daed/daed/Makefile
+#sed -i 's/WING_VERSION:=.*/WING_VERSION:=wing-dc50308/g' package/daed/daed/Makefile
+#sed -i 's/CORE_VERSION:=.*/CORE_VERSION:=core-5a51cc7/g' package/daed/daed/Makefile
+#sed -i 's/PKG_SOURCE_VERSION:=.*/PKG_SOURCE_VERSION:=4d6a43331f2f6e25961935b9e7ac09a7568bb2b4/g' package/daed/daed/Makefile
 
 # 克隆immortalwrt-luci packages仓库
 git clone --depth=1 -b openwrt-25.12 https://github.com/immortalwrt/luci.git immortalwrt-luci
