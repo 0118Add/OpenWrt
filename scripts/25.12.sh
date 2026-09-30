@@ -189,7 +189,7 @@ sed -i 's/"admin/"admin\/services/g' feeds/luci/applications/luci-app-dockerman/
 #sed -i 's/Turbo ACC 网络加速/网络加速/g' package/turboacc/luci-app-turboacc/po/zh_Hans/turboacc.po
 
 # Shortcut Forwarding Engine
-git clone https://$gitea/sbwml/shortcut-fe package/shortcut-fe
+git clone https://github.com/xianren78/shortcut-fe package/new/shortcut-fe
 
 # Patch FireWall 4
 rm -rf package/network/config/firewall4/patches
@@ -217,17 +217,15 @@ curl -s $mirror/openwrt/patch/firewall4/nftables/0001-nftables-add-fullcone-expr
 curl -s $mirror/openwrt/patch/firewall4/nftables/0002-nftables-add-brcm-fullconenat-support.patch > package/network/utils/nftables/patches/0002-nftables-add-brcm-fullconenat-support.patch
 
 # FullCone module
-git clone https://github.com/8688Add/nft-fullcone package/nft-fullcone
+git clone https://github.com/xianren78/nft-fullcone package/new/nft-fullcone
+#git clone https://github.com/8688Add/nft-fullcone package/nft-fullcone
 #git clone https://github.com/hubbylei/fullconenat-nft package/network/utils/fullconenat-nft
 
 # IPv6 NAT
-git clone https://github.com/sbwml/packages_new_nat6 package/nat6 -b openwrt-25.12
+git clone https://github.com/sbwml/packages_new_nat6 package/new/nat6 -b openwrt-25.12
 
 # natflow
-git clone https://github.com/gitbruc/package_new_natflow package/natflow
-
-# luci-app-firewall
-curl -s https://raw.githubusercontent.com/openwrt/luci/refs/heads/master/applications/luci-app-firewall/htdocs/luci-static/resources/view/firewall/zones.js > feeds/luci/applications/luci-app-firewall/htdocs/luci-static/resources/view/firewall/zones.js
+git clone https://github.com/sbwml/package_new_natflow package/new/natflow
 
 # Patch Luci add nft_fullcone/bcm_fullcone & shortcut-fe & natflow & ipv6-nat & custom nft command option
 pushd feeds/luci
