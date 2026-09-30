@@ -224,7 +224,7 @@ git clone https://github.com/8688Add/nft-fullcone package/nft-fullcone
 git clone https://github.com/sbwml/packages_new_nat6 package/nat6 -b openwrt-25.12
 
 # natflow
-merge_package https://github.com/QiuSimons/OpenWrt-Add OpenWrt-Add/openwrt-natflow
+git clone https://github.com/gitbruc/package_new_natflow package/natflow
 
 # luci-app-firewall
 curl -s https://raw.githubusercontent.com/openwrt/luci/refs/heads/master/applications/luci-app-firewall/htdocs/luci-static/resources/view/firewall/zones.js > feeds/luci/applications/luci-app-firewall/htdocs/luci-static/resources/view/firewall/zones.js
