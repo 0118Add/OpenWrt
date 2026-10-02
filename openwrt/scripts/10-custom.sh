@@ -11,18 +11,23 @@ function git_sparse_clone() {
 
 rm -rf feeds/packages/net/{xray-core,sing-box,v2ray-geodata}
 git clone https://github.com/Openwrt-Passwall/openwrt-passwall-packages package/passwall-packages
+sed -i 's/PKG_VERSION:=.*/PKG_VERSION:=1.13.18/g' package/passwall-packages/sing-box/Makefile
+sed -i 's/PKG_HASH:=.*/PKG_HASH:=e41ed9d7adecd7597c1d5cc91818366a9538d94b41c244225ac40ac948c643f5/g' package/passwall-packages/sing-box/Makefile
 
 # OpenClash
 git clone -b dev --depth 1 https://github.com/vernesong/OpenClash package/OpenClash
 
 # clashoo
-git clone https://github.com/kenzok8/openwrt-clashoo package/clashoo
+#git clone https://github.com/kenzok8/openwrt-clashoo package/clashoo
 
 # homeproxy
-#git clone -b master --depth 1 https://github.com/szwjp/luci-app-homeproxy package/luci-app-homeproxy
-#git clone --depth 1 -b master https://github.com/fun200/homeproxy_plus package/luci-app-homeproxy
-#sed -i "s/ImmortalWrt/OpenWrt/g" package/luci-app-homeproxy/po/zh_Hans/homeproxy.po
-#sed -i "s/ImmortalWrt proxy/OpenWrt proxy/g" package/luci-app-homeproxy/htdocs/luci-static/resources/view/homeproxy/{client.js,server.js}
+git clone --depth 1 -b master https://github.com/fun200/homeproxy_plus package/luci-app-homeproxy
+sed -i "s/ImmortalWrt/OpenWrt/g" package/luci-app-homeproxy/po/zh_Hans/homeproxy.po
+sed -i "s/ImmortalWrt proxy/OpenWrt proxy/g" package/luci-app-homeproxy/htdocs/luci-static/resources/view/homeproxy/{client.js,server.js}
+
+# momo mihomo
+#git clone https://github.com/nikkinikki-org/OpenWrt-momo package/OpenWrt-momo
+git clone https://github.com/8688Add/OpenWrt-nikki  package/OpenWrt-nikki
 
 # dae daed
 #git clone -b kix --depth 1 https://github.com/QiuSimons/luci-app-dae package/dae
