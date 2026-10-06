@@ -9,6 +9,7 @@ function git_sparse_clone() {
   cd .. && rm -rf $repodir
 }
 
+rm -rf feeds/packages/gst1-plugins-base
 rm -rf feeds/packages/net/{xray-core,sing-box,v2ray-geodata}
 git_sparse_clone v5 https://github.com/sbwml/openwrt_helloworld sing-box luci-app-homeproxy
 git_sparse_clone main https://github.com/Openwrt-Passwall/openwrt-passwall-packages v2ray-geodata xray-core
