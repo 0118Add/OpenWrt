@@ -10,8 +10,8 @@ function git_sparse_clone() {
 }
 
 rm -rf feeds/packages/net/{xray-core,sing-box,v2ray-geodata}
-git_sparse_clone v5 https://github.com/sbwml/openwrt_helloworld sing-box luci-app-homeproxy
-git_sparse_clone main https://github.com/Openwrt-Passwall/openwrt-passwall-packages v2ray-geodata xray-core
+git_sparse_clone v5 https://github.com/sbwml/openwrt_helloworld luci-app-homeproxy
+git_sparse_clone main https://github.com/Openwrt-Passwall/openwrt-passwall-packages v2ray-geodata sing-box xray-core
 
 # OpenClash
 git clone -b dev --depth 1 https://github.com/vernesong/OpenClash package/OpenClash
@@ -29,8 +29,8 @@ sed -i "s/ImmortalWrt proxy/OpenWrt proxy/g" package/luci-app-homeproxy/htdocs/l
 #git clone -b main --depth 1 https://github.com/YiXuanZX/OpenWrt-nikki package/OpenWrt-nikki
 
 # dae daed
-#git clone -b kix --depth 1 https://github.com/QiuSimons/luci-app-dae package/dae
-git clone -b master --depth 1 https://github.com/QiuSimons/luci-app-honk package/honk
+git clone -b kix --depth 1 https://github.com/QiuSimons/luci-app-dae package/dae
+#git clone -b master --depth 1 https://github.com/QiuSimons/luci-app-honk package/honk
 git clone https://github.com/QiuSimons/vmlinux-btf package/vmlinux-btf
 #sed -i 's/PKG_VERSION:=.*/PKG_VERSION:=2026.06.14/g' package/daed/daed/Makefile
 #sed -i 's/DAED_VERSION:=.*/DAED_VERSION:=daed-4d6a433/g' package/daed/daed/Makefile
