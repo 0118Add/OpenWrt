@@ -20,7 +20,7 @@ curl -sL $mirror/openwrt/patch/natflow/999-fix-ipset-api-kernel-6.12.patch > pac
 #sed -i 's/TARGET_CFLAGS += -flto/TARGET_CFLAGS += -flto -Wno-error/g' package/new/helloworld/shadowsocksr-libev/Makefile
 
 # fix packages_utils_containerd
-sed -i '/GO_PKG:=github.com\/containerd\/containerd/a GO_PKG_INSTALL_ALL:=1' feeds/packages/utils/containerd/Makefile
+#sed -i '/GO_PKG:=github.com\/containerd\/containerd/a GO_PKG_INSTALL_ALL:=1' feeds/packages/utils/containerd/Makefile
 
 # tailscale 换成openwrt主分支最新版
-curl -fsSL https://raw.githubusercontent.com/openwrt/packages/master/net/tailscale/Makefile -o feeds/packages/net/tailscale/Makefile
+#curl -fsSL https://raw.githubusercontent.com/openwrt/packages/master/net/tailscale/Makefile -o feeds/packages/net/tailscale/Makefile
