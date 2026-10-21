@@ -186,7 +186,7 @@ sed -i 's/"admin/"admin\/services/g' feeds/luci/applications/luci-app-dockerman/
 
 # Fullcone-NAT 部分
 # bcmfullcone
-cp -rf ../PATCH/kernel/bcmfullcone/* ./target/linux/generic/hack-${KERNEL_VERSION}/
+curl -s https://raw.githubusercontent.com/0118Add/OpenWrt/main/PATCH/kernel/bcmfullcone/982-add-bcm-fullconenat-support.patch ./target/linux/generic/hack-${KERNEL_VERSION}/982-add-bcm-fullconenat-support.patch
 # set nf_conntrack_expect_max for fullcone
 wget -qO - https://github.com/openwrt/openwrt/commit/bbf39d07.patch | patch -p1
 # FW4
@@ -194,20 +194,22 @@ mkdir -p package/network/config/firewall4/patches
 #cp -f ../PATCH/pkgs/firewall/firewall4_patches/*.patch ./package/network/config/firewall4/patches/
 ### NAT6 部分 ###
 # custom nft command
-patch -p1 < ../PATCH/pkgs/firewall/100-openwrt-firewall4-add-custom-nft-command-support.patch
-cp -f ../PATCH/pkgs/firewall/firewall4_patches/*.patch ./package/network/config/firewall4/patches/
+patch -p1 < https://raw.githubusercontent.com/0118Add/OpenWrt/main/PATCH/pkgs/firewall/100-openwrt-firewall4-add-custom-nft-command-support.patch
+curl -s https://raw.githubusercontent.com/0118Add/OpenWrt/main/PATCH/pkgs/firewall/firewall4_patches/001-fix-fw4-flow-offload.patch ./package/network/config/firewall4/patches/001-fix-fw4-flow-offload.patch
+curl -s https://raw.githubusercontent.com/0118Add/OpenWrt/main/PATCH/pkgs/firewall/firewall4_patches/100-fw4-add-custom-nft-command-support.patch ./package/network/config/firewall4/patches/100-fw4-add-custom-nft-command-support.patch
+curl -s https://raw.githubusercontent.com/0118Add/OpenWrt/main/PATCH/pkgs/firewall/firewall4_patches/999-01-firewall4-add-bcm-fullconenat-support.patch ./package/network/config/firewall4/patches/999-01-firewall4-add-bcm-fullconenat-support.patch
 # Patch LuCI 以增添 NAT6 开关
 pushd feeds/luci
-patch -p1 <../../../PATCH/pkgs/firewall/luci/0003-luci-app-firewall-add-ipv6-nat-option.patch
+patch -p1 https://raw.githubusercontent.com/0118Add/OpenWrt/main/PATCH/pkgs/firewall/luci/0003-luci-app-firewall-add-ipv6-nat-option.patch
 popd
 # Patch LuCI 以支持自定义 nft 规则
 pushd feeds/luci
-patch -p1 <../../../PATCH/pkgs/firewall/luci/0004-luci-add-firewall-add-custom-nft-rule-support.patch
+patch -p1 https://raw.githubusercontent.com/0118Add/OpenWrt/main/PATCH/pkgs/firewall/luci/0004-luci-add-firewall-add-custom-nft-rule-support.patch
 popd
 
 ### Broadcom FullCone NAT (must come after 0003/0004: generated against them) ###
 pushd feeds/luci
-patch -p1 <../../../PATCH/pkgs/firewall/luci/0001-luci-app-firewall-add-brcm-fullcone-nat-option.patch
+patch -p1 https://raw.githubusercontent.com/0118Add/OpenWrt/main/PATCH/pkgs/firewall/luci/0001-luci-app-firewall-add-brcm-fullcone-nat-option.patch
 popd
 
 # 修正部分从第三方仓库拉取的软件 Makefile 路径问题
