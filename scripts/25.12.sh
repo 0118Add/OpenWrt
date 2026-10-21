@@ -186,7 +186,7 @@ sed -i 's/"admin/"admin\/services/g' feeds/luci/applications/luci-app-dockerman/
 
 # Fullcone-NAT 部分
 # bcmfullcone
-curl -s https://raw.githubusercontent.com/0118Add/OpenWrt/main/PATCH/kernel/bcmfullcone/982-add-bcm-fullconenat-support.patch ./target/linux/generic/hack-${KERNEL_VERSION}/982-add-bcm-fullconenat-support.patch
+curl -sL https://raw.githubusercontent.com/0118Add/OpenWrt/main/PATCH/kernel/bcmfullcone/982-add-bcm-fullconenat-support.patch ./target/linux/generic/hack-${KERNEL_VERSION}/982-add-bcm-fullconenat-support.patch
 # set nf_conntrack_expect_max for fullcone
 wget -qO - https://github.com/openwrt/openwrt/commit/bbf39d07.patch | patch -p1
 # FW4
@@ -194,10 +194,10 @@ mkdir -p package/network/config/firewall4/patches
 #cp -f ../PATCH/pkgs/firewall/firewall4_patches/*.patch ./package/network/config/firewall4/patches/
 ### NAT6 部分 ###
 # custom nft command
-patch -p1 < https://raw.githubusercontent.com/0118Add/OpenWrt/main/PATCH/pkgs/firewall/100-openwrt-firewall4-add-custom-nft-command-support.patch
-curl -s https://raw.githubusercontent.com/0118Add/OpenWrt/main/PATCH/pkgs/firewall/firewall4_patches/001-fix-fw4-flow-offload.patch ./package/network/config/firewall4/patches/001-fix-fw4-flow-offload.patch
-curl -s https://raw.githubusercontent.com/0118Add/OpenWrt/main/PATCH/pkgs/firewall/firewall4_patches/100-fw4-add-custom-nft-command-support.patch ./package/network/config/firewall4/patches/100-fw4-add-custom-nft-command-support.patch
-curl -s https://raw.githubusercontent.com/0118Add/OpenWrt/main/PATCH/pkgs/firewall/firewall4_patches/999-01-firewall4-add-bcm-fullconenat-support.patch ./package/network/config/firewall4/patches/999-01-firewall4-add-bcm-fullconenat-support.patch
+curl -sL https://raw.githubusercontent.com/0118Add/OpenWrt/main/PATCH/pkgs/firewall/100-openwrt-firewall4-add-custom-nft-command-support.patch | patch -p1
+curl -sL https://raw.githubusercontent.com/0118Add/OpenWrt/main/PATCH/pkgs/firewall/firewall4_patches/001-fix-fw4-flow-offload.patch ./package/network/config/firewall4/patches/001-fix-fw4-flow-offload.patch
+curl -sL https://raw.githubusercontent.com/0118Add/OpenWrt/main/PATCH/pkgs/firewall/firewall4_patches/100-fw4-add-custom-nft-command-support.patch ./package/network/config/firewall4/patches/100-fw4-add-custom-nft-command-support.patch
+curl -sL https://raw.githubusercontent.com/0118Add/OpenWrt/main/PATCH/pkgs/firewall/firewall4_patches/999-01-firewall4-add-bcm-fullconenat-support.patch ./package/network/config/firewall4/patches/999-01-firewall4-add-bcm-fullconenat-support.patch
 # Patch LuCI 以增添 NAT6 开关
 pushd feeds/luci
 patch -p1 https://raw.githubusercontent.com/0118Add/OpenWrt/main/PATCH/pkgs/firewall/luci/0003-luci-app-firewall-add-ipv6-nat-option.patch
