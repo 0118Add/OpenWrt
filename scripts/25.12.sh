@@ -86,19 +86,17 @@ git clone -b dev --depth 1 https://github.com/vernesong/OpenClash package/OpenCl
 rm -rf feeds/packages/net/{xray-core,sing-box,v2ray-geodata}
 #git clone https://github.com/Openwrt-Passwall/openwrt-passwall-packages package/passwall-packages -b main
 #git clone -b main --single-branch https://github.com/Openwrt-Passwall/openwrt-passwall package/openwrt-passwall
-#merge_package https://github.com/kiddin9/op-packages op-packages/luci-app-passwall
 merge_package https://github.com/Openwrt-Passwall/openwrt-passwall-packages openwrt-passwall-packages/sing-box
 merge_package https://github.com/Openwrt-Passwall/openwrt-passwall-packages openwrt-passwall-packages/xray-core
 merge_package https://github.com/Openwrt-Passwall/openwrt-passwall-packages openwrt-passwall-packages/v2ray-geodata
 
 # homeproxy
-git clone -b main --depth 1 https://github.com/szwjp/luci-app-homeproxy package/luci-app-homeproxy
 #git clone --depth 1 -b master https://github.com/fun200/homeproxy_plus package/luci-app-homeproxy
+merge_package https://github.com/sbwml/openwrt_helloworld openwrt_helloworld/luci-app-homeproxy
 #merge_package https://github.com/VIKINGYFY/packages packages/luci-app-homeproxy
 #merge_package https://github.com/VIKINGYFY/packages packages/sing-box
-#sed -i "s/ImmortalWrt/OpenWrt/g" package/luci-app-homeproxy/po/zh_Hans/homeproxy.po
-#sed -i "s/ImmortalWrt proxy/OpenWrt proxy/g" package/luci-app-homeproxy/htdocs/luci-static/resources/view/homeproxy/{client.js,server.js}
-#wget -O package/luci-app-homeproxy/root/etc/init.d/homeproxy https://raw.githubusercontent.com/0118Add/X86-Actions/main/general/homeproxy
+sed -i "s/ImmortalWrt/OpenWrt/g" package/custom/luci-app-homeproxy/po/zh_Hans/homeproxy.po
+sed -i "s/ImmortalWrt proxy/OpenWrt proxy/g" package/custom/luci-app-homeproxy/htdocs/luci-static/resources/view/homeproxy/{client.js,server.js}
 
 # mihomo
 #git clone https://github.com/nikkinikki-org/OpenWrt-nikki package/OpenWrt-nikki
@@ -106,10 +104,10 @@ git clone -b main --depth 1 https://github.com/szwjp/luci-app-homeproxy package/
 
 # dae daed
 #git clone https://github.com/kenzok8/openwrt-daede package/daede
-git clone https://github.com/kenzok8/openwrt-clashoo package/clashoo
-#git clone -b kix --depth 1 https://github.com/QiuSimons/luci-app-dae package/dae
+#git clone https://github.com/kenzok8/openwrt-clashoo package/clashoo
+git clone -b kix --depth 1 https://github.com/QiuSimons/luci-app-dae package/dae
 #git clone -b kix --depth 1 https://github.com/QiuSimons/luci-app-daed package/daed
-#git clone https://github.com/QiuSimons/vmlinux-btf package/vmlinux-btf
+git clone https://github.com/QiuSimons/vmlinux-btf package/vmlinux-btf
 #sed -i 's/PKG_VERSION:=.*/PKG_VERSION:=2026.06.14/g' package/daed/daed/Makefile
 #sed -i 's/DAED_VERSION:=.*/DAED_VERSION:=daed-4d6a433/g' package/daed/daed/Makefile
 #sed -i 's/WING_VERSION:=.*/WING_VERSION:=wing-dc50308/g' package/daed/daed/Makefile
@@ -123,7 +121,7 @@ sed -i 's/procd_set_param stdout 1/procd_set_param stdout 0/g' feeds/packages/ut
 sed -i 's/procd_set_param stderr 1/procd_set_param stderr 0/g' feeds/packages/utils/ttyd/files/ttyd.init
 
 # partexp
-git clone https://github.com/sirpdboy/luci-app-partexp package/luci-app-partexp
+git clone https://github.com/sirpdboy/luci-app-partexp package/partexp
 
 # luci-app-filemanager
 rm -rf feeds/luci/applications/luci-app-filemanager
@@ -167,14 +165,12 @@ sed -i 's/解除网易云音乐播放限制/音乐解锁/g' feeds/luci/applicati
 # 调整Dockerman到服务菜单
 rm -rf feeds/luci/applications/luci-app-dockerman
 git clone https://github.com/sbwml/luci-app-dockerman feeds/luci/applications/luci-app-dockerman
-rm -rf feeds/packages/utils/{docker,dockerd,containerd,runc}
-git clone https://github.com/sbwml/packages_utils_docker feeds/packages/utils/docker
-git clone https://github.com/sbwml/packages_utils_dockerd feeds/packages/utils/dockerd
-git clone https://github.com/sbwml/packages_utils_containerd feeds/packages/utils/containerd
-git clone https://github.com/sbwml/packages_utils_runc feeds/packages/utils/runc
+#rm -rf feeds/packages/utils/{docker,dockerd,containerd,runc}
+#git clone https://github.com/sbwml/packages_utils_docker feeds/packages/utils/docker
+#git clone https://github.com/sbwml/packages_utils_dockerd feeds/packages/utils/dockerd
+#git clone https://github.com/sbwml/packages_utils_containerd feeds/packages/utils/containerd
+#git clone https://github.com/sbwml/packages_utils_runc feeds/packages/utils/runc
 sed -i 's/"admin/"admin\/services/g' feeds/luci/applications/luci-app-dockerman/root/usr/share/luci/menu.d/luci-app-dockerman.json
-#mkdir -p feeds/packages/utils/dockerd/patches
-#curl -s https://raw.githubusercontent.com/0118Add/X86_64-Test/main/general/patches/001-skip-copy-nested-binaries.patch > feeds/packages/utils/dockerd/patches/001-skip-copy-nested-binaries.patch
 #sed -i 's/"admin",/"admin","services",/g' package/dockerman/applications/luci-app-dockerman/luasrc/controller/*.lua
 #sed -i 's/"admin/"admin\/services/g' package/dockerman/applications/luci-app-dockerman/luasrc/model/*.lua
 #sed -i 's/"admin/"admin\/services/g' package/dockerman/applications/luci-app-dockerman/luasrc/model/cbi/dockerman/*.lua
