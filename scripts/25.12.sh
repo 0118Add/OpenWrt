@@ -221,7 +221,7 @@ git clone https://github.com/xianren78/nft-fullcone package/new/nft-fullcone
 git clone https://github.com/sbwml/packages_new_nat6 package/new/nat6 -b openwrt-25.12
 
 # natflow
-git clone https://github.com/gitbruc/package_new_natflow package/new/natflow package/new/natflow
+git clone https://github.com/gitbruc/package_new_natflow package/new/natflow
 curl -sL $mirror/openwrt/patch/natflow/999-fix-ipset-api-kernel-6.12.patch > package/new/natflow/patches/999-fix-ipset-api-kernel-6.12.patch
 
 # Patch Luci add nft_fullcone/bcm_fullcone & shortcut-fe & natflow & ipv6-nat & custom nft command option
