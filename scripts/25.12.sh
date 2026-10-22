@@ -180,81 +180,9 @@ sed -i 's/"admin/"admin\/services/g' feeds/luci/applications/luci-app-dockerman/
 # turboacc
 #git clone https://github.com/chenmozhijin/turboacc package/turboacc
 #sed -i '/PKG_INSTALL:=/iPKG_FIXUP:=autoreconf' package/libs/libnftnl/Makefile
-#curl -sSL https://raw.githubusercontent.com/mufeng05/openwrt-sonic-fullcone/master/add_sonic_fullcone.sh -o add_sonic_fullcone.sh && bash add_sonic_fullcone.sh
+curl -sSL https://raw.githubusercontent.com/mufeng05/openwrt-sonic-fullcone/master/add_sonic_fullcone.sh | bash
 #curl -sSL https://raw.githubusercontent.com/mufeng05/turboacc/main/add_turboacc.sh -o add_turboacc.sh && bash add_turboacc.sh
 #sed -i 's/Turbo ACC 网络加速/网络加速/g' package/turboacc/luci-app-turboacc/po/zh_Hans/turboacc.po
-
-# 确保在出错时立刻退出，避免盲目往下执行错误流程
-set -e
-
-# 定义补丁所在根目录的绝对路径，防止 pushd/popd 导致相对路径错乱
-PATCH_DIR="$(cd "$(dirname "$0")/../PATCH" && pwd)"
-# 假设你的 PATCH 文件夹和 openwrt 源码文件夹在同级目录下，请根据实际Actions结构调整上面这行
-# 如果 PATCH 文件夹就在源码根目录下，可以直接写：PATCH_DIR="$GITHUB_WORKSPACE/PATCH"
-
-echo "==== 开始在 GitHub Actions 环境中应用网络及 Fullcone NAT 补丁 ===="
-
-### 1. Fullcone-NAT 内核部分 ###
-if [ -d "$PATCH_DIR/kernel/bcmfullcone" ]; then
-    echo "正在复制 bcmfullcone 内核源码..."
-    cp -rf "$PATCH_DIR/kernel/bcmfullcone"/* ./target/linux/generic/hack-${KERNEL_VERSION}/
-else
-    echo "⚠️ 未找到 bcmfullcone 内核补丁目录，跳过."
-fi
-
-# 使用安全幂等的 sed 代替 wget 补丁，防止 github/openwrt 官方更新导致 hunk failed 挂掉
-echo "正在为 netifd 注入 nf_conntrack_expect_max 动态计算逻辑..."
-if [ -f "package/network/config/netifd/files/etc/init.d/network" ]; then
-    if ! grep -q "nf_conntrack_expect_max" package/network/config/netifd/files/etc/init.d/network; then
-        sed -i '/start_service() {/a \\tsysctl -w net.netfilter.nf_conntrack_expect_max=\$((\$(sysctl -n net.netfilter.nf_conntrack_buckets) \/ 4))' package/network/config/netifd/files/etc/init.d/network
-        echo "✅ netifd 脚本注入成功."
-    else
-        echo "ℹ️ netifd 已经包含该参数，跳过."
-    fi
-fi
-
-### 2. Firewall4 (NFTables) 部分 ###
-echo "正在配置 firewall4 自定义 nft 规则补丁..."
-mkdir -p package/network/config/firewall4/patches
-
-# 使用 --batch -f 确保失败时直接报错退出，决不卡死 Actions
-if [ -f "$PATCH_DIR/pkgs/firewall/100-openwrt-firewall4-add-custom-nft-command-support.patch" ]; then
-    patch -p1 --batch -f --no-backup-if-mismatch < "$PATCH_DIR/pkgs/firewall/100-openwrt-firewall4-add-custom-nft-command-support.patch" || echo "⚠️ firewall4 基础补丁应用失败，可能源码已自带该功能"
-fi
-
-if [ -d "$PATCH_DIR/pkgs/firewall/firewall4_patches" ]; then
-    cp -f "$PATCH_DIR/pkgs/firewall/firewall4_patches"/*.patch ./package/network/config/firewall4/patches/
-fi
-
-### 3. LuCI 界面增添与汉化部分 ###
-# 在对 feeds 目录打补丁前，确保 feeds 目录已被克隆并准备就绪
-if [ -d "feeds/luci" ]; then
-    echo "进入 feeds/luci 应用界面控制补丁..."
-    pushd feeds/luci
-
-    # NAT6 开关支持
-    if [ -f "$PATCH_DIR/pkgs/firewall/luci/0003-luci-app-firewall-add-ipv6-nat-option.patch" ]; then
-        patch -p1 --batch -f --no-backup-if-mismatch < "$PATCH_DIR/pkgs/firewall/luci/0003-luci-app-firewall-add-ipv6-nat-option.patch"
-    fi
-
-    # 自定义 nft 规则 Web 界面支持
-    if [ -f "$PATCH_DIR/pkgs/firewall/luci/0004-luci-add-firewall-add-custom-nft-rule-support.patch" ]; then
-        patch -p1 --batch -f --no-backup-if-mismatch < "$PATCH_DIR/pkgs/firewall/luci/0004-luci-add-firewall-add-custom-nft-rule-support.patch"
-    fi
-
-    # 博通 FullCone NAT Web 界面支持
-    if [ -f "$PATCH_DIR/pkgs/firewall/luci/0001-luci-app-firewall-add-brcm-fullcone-nat-option.patch" ]; then
-        patch -p1 --batch -f --no-backup-if-mismatch < "$PATCH_DIR/pkgs/firewall/luci/0001-luci-app-firewall-add-brcm-fullcone-nat-option.patch"
-    fi
-
-    popd
-    echo "✅ LuCI 核心功能补丁应用完毕."
-else
-    echo "❌ 错误: 未在当前工作目录下找到 feeds/luci 目录！请确保此脚本在 './scripts/feeds install -a' 之后执行。"
-    exit 1
-fi
-
-echo "==== 所有自动化补丁就绪，准备开始全局编译 ===="
 
 # 修正部分从第三方仓库拉取的软件 Makefile 路径问题
 #find package/*/ -maxdepth 2 -path "*/Makefile" | xargs -i sed -i 's/..\/..\/luci.mk/$(TOPDIR)\/feeds\/luci\/luci.mk/g' {}
