@@ -9,9 +9,8 @@ function git_sparse_clone() {
   cd .. && rm -rf $repodir
 }
 
-rm -rf package/devel/kselftests-bpf
 rm -rf feeds/packages/net/{xray-core,sing-box,v2ray-geodata}
-git_sparse_clone v5 https://github.com/sbwml/openwrt_helloworld luci-app-homeproxy
+#git_sparse_clone v5 https://github.com/sbwml/openwrt_helloworld luci-app-homeproxy
 git_sparse_clone main https://github.com/Openwrt-Passwall/openwrt-passwall-packages v2ray-geodata sing-box xray-core
 
 # OpenClash
@@ -22,6 +21,7 @@ git clone -b dev --depth 1 https://github.com/vernesong/OpenClash package/OpenCl
 
 # homeproxy
 #git clone --depth 1 -b master https://github.com/fun200/homeproxy_plus package/luci-app-homeproxy
+git clone --depth 1 -b master https://github.com/sjnhnp/homeproxy package/luci-app-homeproxy
 sed -i "s/ImmortalWrt/OpenWrt/g" package/luci-app-homeproxy/po/zh_Hans/homeproxy.po
 sed -i "s/ImmortalWrt proxy/OpenWrt proxy/g" package/luci-app-homeproxy/htdocs/luci-static/resources/view/homeproxy/{client.js,server.js}
 
