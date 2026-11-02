@@ -95,8 +95,8 @@ merge_package https://github.com/Openwrt-Passwall/openwrt-passwall-packages open
 git clone --depth 1 -b master https://github.com/sjnhnp/homeproxy package/luci-app-homeproxy
 #merge_package https://github.com/VIKINGYFY/packages packages/luci-app-homeproxy
 #merge_package https://github.com/VIKINGYFY/packages packages/sing-box
-sed -i "s/ImmortalWrt/OpenWrt/g" package/custom/luci-app-homeproxy/po/zh_Hans/homeproxy.po
-sed -i "s/ImmortalWrt proxy/OpenWrt proxy/g" package/custom/luci-app-homeproxy/htdocs/luci-static/resources/view/homeproxy/{client.js,server.js}
+sed -i "s/ImmortalWrt/OpenWrt/g" package/luci-app-homeproxy/po/zh_Hans/homeproxy.po
+sed -i "s/ImmortalWrt proxy/OpenWrt proxy/g" package/luci-app-homeproxy/htdocs/luci-static/resources/view/homeproxy/{client.js,server.js}
 
 # mihomo
 #git clone https://github.com/nikkinikki-org/OpenWrt-nikki package/OpenWrt-nikki
@@ -179,9 +179,9 @@ sed -i 's/"admin/"admin\/services/g' feeds/luci/applications/luci-app-dockerman/
 
 # turboacc
 git clone https://github.com/QiuSimons/FlowCone package/FlowCone
-merge_package https://github.com/QiuSimons/OpenWrt-Add OpenWrt-Add/luci-app-natmapt
-merge_package https://github.com/QiuSimons/OpenWrt-Add OpenWrt-Add/openwrt-natmapt
-merge_package https://github.com/QiuSimons/OpenWrt-Add OpenWrt-Add/openwrt-stuntman
+merge_package https://github.com/QiuSimons/OpenWrt-Add/tree/master/apps apps/luci-app-natmapt
+merge_package https://github.com/QiuSimons/OpenWrt-Add/tree/master/apps apps/openwrt-natmapt
+merge_package https://github.com/QiuSimons/OpenWrt-Add/tree/master/apps apps/openwrt-stuntman
 #git clone https://github.com/chenmozhijin/turboacc package/turboacc
 #sed -i '/PKG_INSTALL:=/iPKG_FIXUP:=autoreconf' package/libs/libnftnl/Makefile
 curl -sSL https://raw.githubusercontent.com/mufeng05/openwrt-sonic-fullcone/master/add_sonic_fullcone.sh | bash
