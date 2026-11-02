@@ -179,9 +179,9 @@ sed -i 's/"admin/"admin\/services/g' feeds/luci/applications/luci-app-dockerman/
 
 # turboacc
 git clone https://github.com/QiuSimons/FlowCone package/FlowCone
-merge_package https://github.com/QiuSimons/OpenWrt-Add/apps apps/luci-app-natmapt
-merge_package https://github.com/QiuSimons/OpenWrt-Add/apps apps/openwrt-natmapt
-merge_package https://github.com/QiuSimons/OpenWrt-Add/apps apps/openwrt-stuntman
+merge_package https://github.com/QiuSimons/OpenWrt-Add OpenWrt-Add/luci-app-natmapt
+merge_package https://github.com/QiuSimons/OpenWrt-Add OpenWrt-Add/openwrt-natmapt
+merge_package https://github.com/QiuSimons/OpenWrt-Add OpenWrt-Add/openwrt-stuntman
 #git clone https://github.com/chenmozhijin/turboacc package/turboacc
 #sed -i '/PKG_INSTALL:=/iPKG_FIXUP:=autoreconf' package/libs/libnftnl/Makefile
 curl -sSL https://raw.githubusercontent.com/mufeng05/openwrt-sonic-fullcone/master/add_sonic_fullcone.sh | bash
