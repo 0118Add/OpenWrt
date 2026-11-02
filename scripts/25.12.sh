@@ -179,8 +179,8 @@ sed -i 's/"admin/"admin\/services/g' feeds/luci/applications/luci-app-dockerman/
 
 # turboacc
 git clone https://github.com/QiuSimons/FlowCone package/FlowCone
-merge_package https://github.com/8688Add/openwrt_pkgs openwrt_pkgs/luci-app-natmapt
-merge_package https://github.com/8688Add/openwrt_pkgs openwrt_pkgs/openwrt-natmapt
+#merge_package https://github.com/8688Add/openwrt_pkgs openwrt_pkgs/luci-app-natmapt
+#merge_package https://github.com/8688Add/openwrt_pkgs openwrt_pkgs/openwrt-natmapt
 merge_package https://github.com/8688Add/openwrt_pkgs openwrt_pkgs/openwrt-stuntman
 #git clone https://github.com/chenmozhijin/turboacc package/turboacc
 #sed -i '/PKG_INSTALL:=/iPKG_FIXUP:=autoreconf' package/libs/libnftnl/Makefile
