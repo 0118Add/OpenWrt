@@ -92,7 +92,7 @@ merge_package https://github.com/Openwrt-Passwall/openwrt-passwall-packages open
 
 # homeproxy
 #git clone --depth 1 -b master https://github.com/fun200/homeproxy_plus package/luci-app-homeproxy
-merge_package https://github.com/sbwml/openwrt_helloworld openwrt_helloworld/luci-app-homeproxy
+git clone --depth 1 -b master https://github.com/sjnhnp/homeproxy package/luci-app-homeproxy
 #merge_package https://github.com/VIKINGYFY/packages packages/luci-app-homeproxy
 #merge_package https://github.com/VIKINGYFY/packages packages/sing-box
 sed -i "s/ImmortalWrt/OpenWrt/g" package/custom/luci-app-homeproxy/po/zh_Hans/homeproxy.po
@@ -105,8 +105,8 @@ sed -i "s/ImmortalWrt proxy/OpenWrt proxy/g" package/custom/luci-app-homeproxy/h
 # dae daed
 #git clone https://github.com/kenzok8/openwrt-daede package/daede
 #git clone https://github.com/kenzok8/openwrt-clashoo package/clashoo
-git clone -b kix --depth 1 https://github.com/QiuSimons/luci-app-dae package/dae
-#git clone -b kix --depth 1 https://github.com/QiuSimons/luci-app-daed package/daed
+#git clone -b kix --depth 1 https://github.com/QiuSimons/luci-app-dae package/dae
+git clone -b master --depth 1 https://github.com/QiuSimons/luci-app-honk package/honk
 git clone https://github.com/QiuSimons/vmlinux-btf package/vmlinux-btf
 #sed -i 's/PKG_VERSION:=.*/PKG_VERSION:=2026.06.14/g' package/daed/daed/Makefile
 #sed -i 's/DAED_VERSION:=.*/DAED_VERSION:=daed-4d6a433/g' package/daed/daed/Makefile
@@ -178,6 +178,10 @@ sed -i 's/"admin/"admin\/services/g' feeds/luci/applications/luci-app-dockerman/
 #sed -i 's/"admin/"admin\/services/g' package/dockerman/applications/luci-app-dockerman/luasrc/view/dockerman/cbi/*.htm
 
 # turboacc
+git clone https://github.com/QiuSimons/FlowCone package/FlowCone
+merge_package https://github.com/QiuSimons/OpenWrt-Add/apps apps/luci-app-natmapt
+merge_package https://github.com/QiuSimons/OpenWrt-Add/apps apps/openwrt-natmapt
+merge_package https://github.com/QiuSimons/OpenWrt-Add/apps apps/openwrt-stuntman
 #git clone https://github.com/chenmozhijin/turboacc package/turboacc
 #sed -i '/PKG_INSTALL:=/iPKG_FIXUP:=autoreconf' package/libs/libnftnl/Makefile
 curl -sSL https://raw.githubusercontent.com/mufeng05/openwrt-sonic-fullcone/master/add_sonic_fullcone.sh | bash
