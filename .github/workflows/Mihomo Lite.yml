@@ -1,0 +1,136 @@
+name: Build Mihomo Lite Core
+
+on:
+  workflow_dispatch:
+    inputs:
+      tag_name:
+        description: 'Mihomo 源碼 Tag (例如 v1.19.2，留空則自動獲取官方最新 Release)'
+        required: false
+        default: ''
+  #schedule:
+    #- cron: '0 0 * * 0' # 每週日自動檢查並編譯最新版
+
+# 授予 GITHUB_TOKEN 建立與寫入 Release 的權限
+permissions:
+  contents: write
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - goarch: arm64
+            goarm: ""
+            name: linux-arm64
+          - goarch: amd64
+            goarm: ""
+            name: linux-amd64
+
+    steps:
+      - name: 獲取 Mihomo 最新 Tag
+        id: get_tag
+        run: |
+          if [ -z "${{ github.event.inputs.tag_name }}" ]; then
+            TAG=$(curl -s https://api.github.com/repos/metacubex/mihomo/releases/latest | jq -r .tag_name)
+          else
+            TAG="${{ github.event.inputs.tag_name }}"
+          fi
+          echo "TAG=$TAG" >> $GITHUB_OUTPUT
+          echo "編譯版本Tag: $TAG"
+
+      - name: 拉取 Mihomo 官方源碼
+        uses: actions/checkout@v4
+        with:
+          repository: metacubex/mihomo
+          ref: ${{ steps.get_tag.outputs.TAG }}
+
+      - name: 設定 Go 環境
+        uses: actions/setup-go@v5
+        with:
+          go-version: 'stable' # 亦可設為 '1.24' 或 'stable'
+
+      - name: 安裝最新 UPX 5.x 壓縮工具
+        run: |
+          UPX_TAG=$(curl -s https://api.github.com/repos/upx/upx/releases/latest | jq -r .tag_name)
+          UPX_VER=${UPX_TAG#v}
+          echo "正在下載 UPX 最新版本: ${UPX_TAG}"
+          
+          curl -L -o upx.tar.xz "https://github.com/upx/upx/releases/download/${UPX_TAG}/upx-${UPX_VER}-amd64_linux.tar.xz"
+          tar -xf upx.tar.xz
+          sudo mv "upx-${UPX_VER}-amd64_linux/upx" /usr/local/bin/
+          rm -rf upx*
+          
+          upx --version
+
+      - name: 編譯 Mihomo Lite 核心
+        env:
+          GOOS: linux
+          GOARCH: ${{ matrix.goarch }}
+          GOARM: ${{ matrix.goarm }}
+          CGO_ENABLED: 0
+        run: |
+          BUILD_TIME=$(date -u '+%Y-%m-%d-%H%M')
+          VERSION="${{ steps.get_tag.outputs.TAG }}"
+          
+          # 定義精簡 Build Tags（無 with_gvisor）
+          TAGS="no_tailscale,no_zerotier,no_easytier,no_fake_tcp"
+          
+          OUT_NAME="mihomo-${{ matrix.name }}"
+          
+          go build -v -trimpath \
+            -tags "$TAGS" \
+            -ldflags "-s -w -buildid= \
+              -X 'github.com/metacubex/mihomo/constant.Version=${VERSION}' \
+              -X 'github.com/metacubex/mihomo/constant.BuildTime=${BUILD_TIME}'" \
+            -o "$OUT_NAME" .
+
+      - name: UPX 5.x LZMA 極限壓縮 (無 .upx 後綴)
+        run: |
+          OUT_NAME="mihomo-${{ matrix.name }}"
+          upx --best --lzma "$OUT_NAME"
+
+      - name: 上傳 Artifact 暫存檔
+        uses: actions/upload-artifact@v4
+        with:
+          name: mihomo-${{ matrix.name }}
+          path: mihomo-${{ matrix.name }}
+
+  release:
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+      - name: 下載所有架構編譯檔
+        uses: actions/download-artifact@v4
+        with:
+          merge-multiple: true
+          path: ./dist
+
+      - name: 獲取發布版本 Tag
+        id: tag
+        run: |
+          if [ -n "${{ github.event.inputs.tag_name }}" ]; then
+            TAG="${{ github.event.inputs.tag_name }}"
+          else
+            TAG=$(curl -s https://api.github.com/repos/metacubex/mihomo/releases/latest | jq -r .tag_name)
+          fi
+          echo "RELEASE_TAG=${TAG}-lite" >> $GITHUB_OUTPUT
+          echo "VERSION_TAG=${TAG}" >> $GITHUB_OUTPUT
+
+      - name: 發布 GitHub Release (保留歷史版本)
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: ${{ steps.tag.outputs.RELEASE_TAG }}
+          name: Mihomo Lite Core (${{ steps.tag.outputs.VERSION_TAG }})
+          body: |
+            ## Mihomo Lite 核心編譯資訊
+            - **源碼版本**: `${{ steps.tag.outputs.VERSION_TAG }}`
+            - **Build Tags**: `no_tailscale,no_zerotier,no_easytier,no_fake_tcp` (已排除 `with_gvisor`)
+            - **支援架構**: `linux-arm64`, `linux-armv7`
+            - **壓縮工具**: UPX 5.x (`--best --lzma`)
+          files: ./dist/*
+          draft: false
+          prerelease: false
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
