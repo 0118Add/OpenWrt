@@ -1,0 +1,213 @@
+name: Mihomo UPX Release
+
+on:
+  # schedule:
+    # - cron: "0 2 * * *"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    runs-on: ubuntu-24.04
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v5
+
+      - name: Get latest stable Mihomo release
+        id: mihomo
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          set -e
+
+          RELEASE=$(curl -fsSL \
+            -H "Authorization: Bearer ${GH_TOKEN}" \
+            -H "Accept: application/vnd.github+json" \
+            "https://api.github.com/repos/MetaCubeX/mihomo/releases" |
+            jq -r '
+              map(select(.draft == false and .prerelease == false))
+              | sort_by(.published_at)
+              | last
+            ')
+
+          VERSION=$(echo "$RELEASE" | jq -r '.tag_name')
+
+          echo "Latest stable Mihomo: $VERSION"
+          echo "version=$VERSION" >> "$GITHUB_OUTPUT"
+
+          echo "$RELEASE" > release.json
+
+      - name: Check whether release already exists
+        id: existing
+        env:
+          GH_TOKEN: ${{ github.token }}
+          VERSION: ${{ steps.mihomo.outputs.version }}
+        run: |
+          if gh release view "$VERSION" >/dev/null 2>&1; then
+            echo "exists=true" >> "$GITHUB_OUTPUT"
+            echo "Release $VERSION already exists."
+          else
+            echo "exists=false" >> "$GITHUB_OUTPUT"
+            echo "Release $VERSION does not exist."
+          fi
+
+      - name: Install UPX 5.2.0
+        if: steps.existing.outputs.exists == 'false'
+        run: |
+          set -e
+
+          UPX_VERSION="5.2.0"
+
+          wget -q \
+            "https://github.com/upx/upx/releases/download/v${UPX_VERSION}/upx-${UPX_VERSION}-amd64_linux.tar.xz"
+
+          tar -xf \
+            "upx-${UPX_VERSION}-amd64_linux.tar.xz"
+
+          sudo install -m 755 \
+            "upx-${UPX_VERSION}-amd64_linux/upx" \
+            /usr/local/bin/upx
+
+          upx --version
+
+      - name: Download Mihomo ARMv7 and ARM64
+        if: steps.existing.outputs.exists == 'false'
+        env:
+          VERSION: ${{ steps.mihomo.outputs.version }}
+        run: |
+          set -e
+
+          mkdir -p work release
+
+          ARMV7_URL=$(jq -r --arg VERSION "$VERSION" '
+            .assets[]
+            | select(.name == ("mihomo-linux-armv7-" + $VERSION + ".gz"))
+            | .browser_download_url
+          ' release.json)
+
+          ARM64_URL=$(jq -r --arg VERSION "$VERSION" '
+            .assets[]
+            | select(.name == ("mihomo-linux-arm64-" + $VERSION + ".gz"))
+            | .browser_download_url
+          ' release.json)
+
+          echo "ARMv7: $ARMV7_URL"
+          echo "ARM64: $ARM64_URL"
+
+          test "$ARMV7_URL" != "null"
+          test "$ARM64_URL" != "null"
+
+          wget -q \
+            "$ARMV7_URL" \
+            -O "work/mihomo-linux-armv7-${VERSION}.gz"
+
+          wget -q \
+            "$ARM64_URL" \
+            -O "work/mihomo-linux-arm64-${VERSION}.gz"
+
+          ls -lh work/
+
+      - name: Decompress and UPX
+        if: steps.existing.outputs.exists == 'false'
+        env:
+          VERSION: ${{ steps.mihomo.outputs.version }}
+        run: |
+          set -e
+
+          gunzip \
+            "work/mihomo-linux-armv7-${VERSION}.gz"
+
+          gunzip \
+            "work/mihomo-linux-arm64-${VERSION}.gz"
+
+          mv \
+            "work/mihomo-linux-armv7-${VERSION}" \
+            "release/mihomo-linux-armv7-${VERSION}.upx"
+
+          mv \
+            "work/mihomo-linux-arm64-${VERSION}" \
+            "release/mihomo-linux-arm64-${VERSION}.upx"
+
+          chmod +x release/*.upx
+
+          upx \
+            --best \
+            --lzma \
+            "release/mihomo-linux-armv7-${VERSION}.upx"
+
+          upx \
+            --best \
+            --lzma \
+            "release/mihomo-linux-arm64-${VERSION}.upx"
+
+          upx -t \
+            "release/mihomo-linux-armv7-${VERSION}.upx"
+
+          upx -t \
+            "release/mihomo-linux-arm64-${VERSION}.upx"
+
+          ls -lh release/
+
+      - name: Generate SHA256
+        if: steps.existing.outputs.exists == 'false'
+        run: |
+          set -e
+
+          cd release
+
+          sha256sum \
+            mihomo-linux-armv7-*.upx \
+            mihomo-linux-arm64-*.upx \
+            > SHA256SUMS
+
+          cat SHA256SUMS
+
+      - name: Create GitHub Release
+        if: steps.existing.outputs.exists == 'false'
+        env:
+          GH_TOKEN: ${{ github.token }}
+          VERSION: ${{ steps.mihomo.outputs.version }}
+        run: |
+          set -e
+
+          gh release create "$VERSION" \
+            release/* \
+            --title "Mihomo $VERSION UPX" \
+            --generate-notes
+
+      - name: Keep only latest 2 releases
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          set -e
+
+          gh api \
+            --paginate \
+            -H "Accept: application/vnd.github+json" \
+            "/repos/${GITHUB_REPOSITORY}/releases?per_page=100" |
+          jq -r '
+            sort_by(.published_at)
+            | reverse
+            | .[2:]
+            | .[]
+            | "\(.id)\t\(.tag_name)"
+          ' |
+          while IFS=$'\t' read -r ID TAG; do
+            echo "Deleting old release: $TAG"
+
+            gh api \
+              --method DELETE \
+              -H "Accept: application/vnd.github+json" \
+              "/repos/${GITHUB_REPOSITORY}/releases/${ID}"
+
+            echo "Deleting tag: $TAG"
+
+            gh api \
+              --method DELETE \
+              -H "Accept: application/vnd.github+json" \
+              "/repos/${GITHUB_REPOSITORY}/git/refs/tags/${TAG}" \
+              || true
+          done
